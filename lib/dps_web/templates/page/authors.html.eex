@@ -1,0 +1,10 @@
+<div id="root"><a href="/">/</a></div>
+<h1>Authors</h1>
+<dl>
+<%= for author <- @authors do %>
+    <dt>
+      <a href="<%= author_id_to_url(author.id) %>">
+        <%= author.name %>
+    </dt>
+<% end %>
+</dl>

@@ -2,7 +2,9 @@ defmodule DpsWeb.PageController do
   use DpsWeb, :controller
   alias Dps.{Poem, Repo, Author}
 
-  def index(conn, _params) do
+  def index(conn, params), do: poems(conn, params)
+
+  def poems(conn, _params) do
     poems = Poem.Query.get_all_poems()
 
     conn
@@ -13,6 +15,11 @@ defmodule DpsWeb.PageController do
     poem = id |> String.to_integer() |> Poem.Query.get_poem_by_id()
     title = poem.title <> " by " <> poem.author.name
     render(conn, "poem.html", poem: poem, title: title)
+  end
+
+  def authors(conn, _params) do
+    authors = Repo.all(Author)
+    render(conn, "authors.html", authors: authors, title: "Authors")
   end
 
   def author(conn, %{"id" => id}) do

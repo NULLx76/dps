@@ -51,7 +51,6 @@ config :dps, DpsWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
       ~r"lib/dps_web/(live|views)/.*(ex)$",
       ~r"lib/dps_web/templates/.*(eex)$"
     ]

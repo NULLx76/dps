@@ -20,6 +20,7 @@ defmodule DpsWeb.Router do
     get "/poems", PageController, :index
     get "/poems/:id", PageController, :poem
 
+    get "/authors", PageController, :authors
     get "/authors/:id", PageController, :author
   end
 

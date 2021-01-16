@@ -22,7 +22,6 @@ defmodule DpsWeb do
       use Phoenix.Controller, namespace: DpsWeb
 
       import Plug.Conn
-      import DpsWeb.Gettext
       alias DpsWeb.Router.Helpers, as: Routes
     end
   end
@@ -54,7 +53,6 @@ defmodule DpsWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import DpsWeb.Gettext
     end
   end
 
@@ -67,7 +65,6 @@ defmodule DpsWeb do
       import Phoenix.View
 
       import DpsWeb.ErrorHelpers
-      import DpsWeb.Gettext
       alias DpsWeb.Router.Helpers, as: Routes
     end
   end

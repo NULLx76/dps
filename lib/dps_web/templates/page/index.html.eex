@@ -1,8 +1,3 @@
-<h1> dps </h1>
-<ul>
-<%= for poem <- @poems do %>
-  <li><a href="<%= poem_id_to_url(poem.id) %>">
-    <%= poem.title %> by <%= poem.author.name %>
-  </a></li>
-<% end %>
-</ul>
+<h1>Poems</h1>
+
+<%= render("poem_list.html", poems: @poems, show_author: true) %>

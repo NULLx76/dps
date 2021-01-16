@@ -1,7 +1,12 @@
+<div id="root"><a href="/">/</a></div>
 <article>
     <header>
         <h2 class="title"><%= @poem.title %></h2>
-        <h3 class="author"><%= @poem.author.name %></h3>
+        <h3 class="author">
+            <a href="<%= author_id_to_url(@poem.author.id) %>">
+                <%= @poem.author.name %>
+            </a>
+        </h3>
     </header>
 
     <%= if true do %>

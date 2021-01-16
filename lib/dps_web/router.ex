@@ -17,18 +17,21 @@ defmodule DpsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/poems", PageController, :index
     get "/poems/:id", PageController, :poem
+
+    get "/authors/:id", PageController, :author
   end
 
   # Other scopes may use custom stacks.
   scope "/api", DpsWeb do
     pipe_through :api
 
-    get "/authors", AuthorController, :authors
-    get "/authors/:id", AuthorController, :author
+    get "/authors", ApiController, :authors
+    get "/authors/:id", ApiController, :author
 
-    get "/poems", PoemController, :poems
-    get "/poems/:id", PoemController, :poem
+    get "/poems", ApiController, :poems
+    get "/poems/:id", ApiController, :poem
   end
 
   # Enables LiveDashboard only for development
@@ -43,7 +46,7 @@ defmodule DpsWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: DpsWeb.Telemetry
+      live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
     end
   end
 end

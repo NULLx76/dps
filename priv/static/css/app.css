@@ -6,6 +6,59 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    font: 1rem 'Fira Sans', sans-serif;
 }
 
-/* Alerts */
+#root {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+#root > a {
+    border-bottom: none;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    border-bottom: 2px dotted #444444;
+}
+
+a:visited {
+    border-bottom: 2px dotted #444444;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.15rem;
+    font-weight: normal;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin-bottom: 1em;
+}
+
+/* TODO: Alerts */

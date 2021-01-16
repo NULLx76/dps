@@ -1,0 +1,8 @@
+<div id="root"><a href="/">/</a></div>
+<article>
+    <header>
+        <h1><%= @author.name %></h3>
+    </header>
+
+    <%= render("poem_list.html", poems: @poems, show_author: false) %>
+</article>

@@ -19,7 +19,7 @@ defmodule Dps.Poem do
   def changeset(poem, attrs) do
     poem
     |> cast(attrs, [:title, :epigraph, :content, :author])
-    |> validate_required([:title, :epigraph, :content, :author])
+    |> validate_required([:title, :content, :author])
   end
 end
 
@@ -32,6 +32,11 @@ defmodule Dps.Poem.Query do
     from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title})
     |> Repo.all()
     |> Repo.preload(:author)
+  end
+
+  def get_all_poems_by_author(author_id) do
+    from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title}, where: p.author_id == ^author_id)
+    |> Repo.all()
   end
 
   @spec get_poem_by_id(integer()) :: nil | %Poem{}

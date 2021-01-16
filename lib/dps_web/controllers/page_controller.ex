@@ -19,8 +19,7 @@ defmodule DpsWeb.PageController do
   def poems(conn, _params) do
     poems = Poem.Query.get_all_poems()
 
-    conn
-    |> render("poems.html", poems: poems)
+    render(conn, "poems.html", poems: poems)
   end
 
   def poem(conn, %{"id" => id}) do

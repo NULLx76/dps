@@ -32,4 +32,20 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   config :dps, DpsWeb.Endpoint, server: true
+
+  auth_user =
+    System.get_env("AUTH_USERNAME") ||
+      raise """
+      environment variable AUTH_USERNAME is missing.
+      This is used for authenticating admin routes.
+      """
+
+  auth_pass =
+    System.get_env("AUTH_PASSWORD") ||
+      raise """
+      environment variable AUTH_USERNAME is missing.
+      This is used for authenticating admin routes.
+      """
+
+  config :dps, :basic_auth, username: auth_user, password: auth_pass
 end

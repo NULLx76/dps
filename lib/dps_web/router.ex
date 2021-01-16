@@ -1,5 +1,6 @@
 defmodule DpsWeb.Router do
   use DpsWeb, :router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,18 +14,11 @@ defmodule DpsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :api_auth do
-    plug :accepts, ["json"]
-    plug :auth
-  end
-
   defp auth(conn, _opts) do
-    username = System.fetch_env!("AUTH_USERNAME")
-    password = System.fetch_env!("AUTH_PASSWORD")
-    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+    Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:dps, :basic_auth))
   end
 
-  # The website
+  # Browser pages
   scope "/", DpsWeb do
     pipe_through :browser
 
@@ -34,6 +28,14 @@ defmodule DpsWeb.Router do
 
     get "/authors", PageController, :authors
     get "/authors/:id", PageController, :author
+  end
+
+  # Authenticated Browser pages
+  scope "/" do
+    pipe_through :browser
+    pipe_through :auth
+
+    live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
   end
 
   # Public api
@@ -49,25 +51,10 @@ defmodule DpsWeb.Router do
 
   # Authenticated api
   scope "/api", DpsWeb do
-    pipe_through :api_auth
+    pipe_through :api
+    pipe_through :auth
 
     post "/authors", AuthorController, :create
     post "/poems", PoemController, :create
-  end
-
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
-
-    scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
-    end
   end
 end

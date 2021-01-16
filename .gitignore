@@ -29,3 +29,7 @@ dps-*.tar
 
 # The language server temp files
 /.elixir_ls/
+
+# Jetbrains ide files
+/.idea/
+*.impl

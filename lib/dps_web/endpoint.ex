@@ -10,10 +10,7 @@ defmodule DpsWeb.Endpoint do
     signing_salt: "+Y8zQVWZ"
   ]
 
-  socket "/socket", DpsWeb.UserSocket,
-    websocket: true,
-    longpoll: false
-
+  # Used for the Dashboard
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.

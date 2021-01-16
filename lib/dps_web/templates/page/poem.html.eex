@@ -1,0 +1,16 @@
+<article>
+    <header>
+        <h2 class="title"><%= @poem.title %></h2>
+        <h3 class="author"><%= @poem.author.name %></h3>
+    </header>
+
+    <%= if true do %>
+    <section class="epigraph">
+        <%= @poem.epigraph %>
+    </section>
+    <% end %>
+
+    <section class="content">
+        <%= @poem.content %>
+    </section>
+</article>

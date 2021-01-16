@@ -1,0 +1,14 @@
+/* Poem Styling */
+.author::before {
+    content: "by ";
+    font-style: italic;
+}
+
+.epigraph {
+    font-style: italic;
+    padding-left: 1em;
+}
+
+.content {
+    white-space: pre;
+}

@@ -13,11 +13,12 @@ defmodule DpsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # scope "/", DpsWeb do
-  #   pipe_through :browser
+  scope "/", DpsWeb do
+    pipe_through :browser
 
-  #   get "/", PageController, :index
-  # end
+    get "/", PageController, :index
+    get "/poems/:id", PageController, :poem
+  end
 
   # Other scopes may use custom stacks.
   scope "/api", DpsWeb do

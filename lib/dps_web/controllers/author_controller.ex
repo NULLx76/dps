@@ -1,11 +1,14 @@
 defmodule DpsWeb.AuthorController do
   use DpsWeb, :controller
-  alias Dps.{Repo, Author, Poem}
-  import Ecto.Query
+  alias Dps.{Repo, Author}
 
   def authors(conn, _params) do
-    poem_query = from p in Poem, select: %Poem{id: p.id, title: p.title}
-    authors = Repo.all(from a in Author, preload: [poems: ^poem_query])
+    authors = Repo.all(Author)
     json(conn, authors)
+  end
+
+  def author(conn, %{"id" => id}) do
+    author = Repo.get(Author, String.to_integer(id))
+    json(conn, author)
   end
 end

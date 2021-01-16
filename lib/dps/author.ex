@@ -3,7 +3,7 @@ defmodule Dps.Author do
   import Ecto.Changeset
   alias Dps.Poem
 
-  @derive {Jason.Encoder, only: [:id, :name, :poems]}
+  @derive {Jason.Encoder, only: [:id, :name]}
   schema "authors" do
     field :name, :string
 
@@ -19,3 +19,9 @@ defmodule Dps.Author do
     |> validate_required([:name])
   end
 end
+
+# defmodule Dps.Author.Query do
+#   import Ecto.Query
+#   alias Dps.{Repo,Author}
+
+# end

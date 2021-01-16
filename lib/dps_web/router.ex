@@ -24,6 +24,10 @@ defmodule DpsWeb.Router do
     pipe_through :api
 
     get "/authors", AuthorController, :authors
+    get "/authors/:id", AuthorController, :author
+
+    get "/poems", PoemController, :poems
+    get "/poems/:id", PoemController, :poem
   end
 
   # Enables LiveDashboard only for development

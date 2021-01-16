@@ -1,3 +1,5 @@
-<h1>Poems</h1>
-
+<nav>
+    <span class="bold">Poems</span> - <a href="/authors">Authors</a>
+    <hr>
+</nav>
 <%= render("poem_list.html", poems: @poems, show_author: true) %>

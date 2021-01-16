@@ -1,5 +1,7 @@
-<div id="root"><a href="/">/</a></div>
-<h1>Authors</h1>
+<nav>
+    <a href="/poems">Poems</a> - <span class="bold">Authors</span>
+    <hr>
+</nav>
 <dl>
 <%= for author <- @authors do %>
     <dt>

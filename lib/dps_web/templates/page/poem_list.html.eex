@@ -10,6 +10,7 @@
       by
       <a href="<%= author_id_to_url(poem.author.id) %>">
         <%= poem.author.name %>
+      </a>
     </dd>
     <% end %>
 <% end %>

@@ -1,4 +1,8 @@
-<div id="root"><a href="/">/</a></div>
+<nav>
+    <a href="/poems">Poems</a> - <a href="/authors">Authors</a>
+    <hr>
+</nav>
+
 <article>
     <header>
         <h2 class="title"><%= @poem.title %></h2>
@@ -9,7 +13,7 @@
         </h3>
     </header>
 
-    <%= if true do %>
+    <%= if @poem.epigraph do %>
     <section class="epigraph">
         <%= @poem.epigraph %>
     </section>

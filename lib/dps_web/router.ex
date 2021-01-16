@@ -13,26 +13,46 @@ defmodule DpsWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_auth do
+    plug :accepts, ["json"]
+    plug :auth
+  end
+
+  defp auth(conn, _opts) do
+    username = System.fetch_env!("AUTH_USERNAME")
+    password = System.fetch_env!("AUTH_PASSWORD")
+    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+  end
+
+  # The website
   scope "/", DpsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    get "/poems", PageController, :index
+    get "/", PageController, :poems
+    get "/poems", PageController, :poems
     get "/poems/:id", PageController, :poem
 
     get "/authors", PageController, :authors
     get "/authors/:id", PageController, :author
   end
 
-  # Other scopes may use custom stacks.
+  # Public api
   scope "/api", DpsWeb do
     pipe_through :api
 
-    get "/authors", ApiController, :authors
-    get "/authors/:id", ApiController, :author
+    get "/authors", AuthorController, :index
+    get "/authors/:id", AuthorController, :show
 
-    get "/poems", ApiController, :poems
-    get "/poems/:id", ApiController, :poem
+    get "/poems", PoemController, :index
+    get "/poems/:id", PoemController, :show
+  end
+
+  # Authenticated api
+  scope "/api", DpsWeb do
+    pipe_through :api_auth
+
+    post "/authors", AuthorController, :create
+    post "/poems", PoemController, :create
   end
 
   # Enables LiveDashboard only for development

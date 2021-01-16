@@ -20,8 +20,12 @@ defmodule Dps.Author do
   end
 end
 
-# defmodule Dps.Author.Query do
-#   import Ecto.Query
-#   alias Dps.{Repo,Author}
+defmodule Dps.Author.Query do
+  alias Dps.{Repo,Author}
 
-# end
+  def create_author(attrs \\ %{}) do
+    %Author{}
+    |> Author.changeset(attrs)
+    |> Repo.insert()
+  end
+end

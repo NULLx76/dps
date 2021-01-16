@@ -1,19 +1,11 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Dps.Repo.insert!(%Dps.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+# Script for populating the database.
+
 alias Dps.Repo
 alias Dps.Poem
 alias Dps.Author
 
 coleridge = Repo.insert!(%Author{name: "Samuel Taylor Coleridge"}).id
+robert_frost = Repo.insert!(%Author{name: "Robert Frost"}).id
 
 Repo.insert!(%Poem{
   author_id: coleridge,
@@ -75,8 +67,6 @@ Weave a circle round him thrice,
 And close your eyes with holy dread
 For he on honey-dew hath fed,
 And drunk the milk of Paradise."})
-
-robert_frost = Repo.insert!(%Author{name: "Robert Frost"}).id
 
 Repo.insert!(%Poem{
    author_id: robert_frost,

@@ -35,7 +35,9 @@ defmodule Dps.Poem.Query do
   end
 
   def get_all_poems_by_author(author_id) do
-    from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title}, where: p.author_id == ^author_id)
+    from(p in Poem,
+      select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
+      where: p.author_id == ^author_id)
     |> Repo.all()
   end
 

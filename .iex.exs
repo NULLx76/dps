@@ -1,4 +1,2 @@
-alias Dps.Repo
-alias Dps.Author
-alias Dps.Poem
+alias Dps.{Repo, Author, Poem}
 import Ecto.Query

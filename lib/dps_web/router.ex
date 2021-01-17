@@ -18,6 +18,17 @@ defmodule DpsWeb.Router do
     Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:dps, :basic_auth))
   end
 
+  # Authenticated Browser pages
+  scope "/", DpsWeb do
+    pipe_through :browser
+    pipe_through :auth
+
+    get "/authors/new", AuthorPageController, :new
+    post "/authors/new", AuthorPageController, :create
+
+    live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
+  end
+
   # Browser pages
   scope "/", DpsWeb do
     pipe_through :browser
@@ -28,14 +39,6 @@ defmodule DpsWeb.Router do
 
     get "/authors", AuthorPageController, :index
     get "/authors/:id", AuthorPageController, :show
-  end
-
-  # Authenticated Browser pages
-  scope "/" do
-    pipe_through :browser
-    pipe_through :auth
-
-    live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
   end
 
   # Public api

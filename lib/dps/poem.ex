@@ -57,7 +57,6 @@ defmodule Dps.Poem.Query do
           |> Repo.preload(:author)
 
         Cache.put({:poem, id}, poem)
-        poem
 
       v ->
         :telemetry.execute([:dps, :cache, :hit], %{poem: id})

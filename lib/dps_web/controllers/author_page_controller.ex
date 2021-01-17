@@ -15,4 +15,17 @@ defmodule DpsWeb.AuthorPageController do
 
     render(conn, "show.html", poems: poems, author: author, title: "Poems by " <> author.name)
   end
+
+  def new(conn, _params) do
+    changeset = Author.changeset(%Author{})
+    render(conn, "new.html", changeset: changeset)
+  end
+
+  def create(conn, params) do
+    %{"author" => author} = params
+
+    with {:ok, %Author{}} <- Author.Query.create_author(author) do
+      redirect(conn, to: Routes.author_page_path(conn, :index))
+    end
+  end
 end

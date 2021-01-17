@@ -15,7 +15,7 @@ defmodule Dps.Application do
       {Phoenix.PubSub, name: Dps.PubSub},
       # Start the Endpoint (http/https)
       DpsWeb.Endpoint,
-      # Start a worker by calling: Dps.Worker.start_link(arg)
+      # Start the Cache GenServer
       {Dps.Cache, []}
     ]
 

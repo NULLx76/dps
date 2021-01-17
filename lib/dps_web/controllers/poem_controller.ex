@@ -8,7 +8,7 @@ defmodule DpsWeb.PoemController do
   end
 
   def show(conn, %{"id" => id}) do
-    poem = id |> String.to_integer() |> Poem.Query.get_poem_by_id()
+    poem = String.to_integer(id) |> Poem.Query.get_poem_by_id()
     json(conn, poem)
   end
 

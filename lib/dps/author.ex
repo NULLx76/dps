@@ -34,7 +34,7 @@ defmodule Dps.Author.Query do
   def all_authors(sort_by \\ [asc: :name]) do
     Author
     |> order_by(^sort_by)
-    |> Repo.all()
+    |> Repo.all
   end
 
   def get_author_by_id(id) do

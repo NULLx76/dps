@@ -2,17 +2,29 @@
 
 <%= form_for @changeset, Routes.poem_page_path(@conn, :create), fn f -> %>
 
-  <label for="poem_title">Title:</label>
-  <%= text_input f, :title %>
+  <div>
+    <label for="poem_title">Title</label>
+    <%= text_input f, :title %>
+  </div>
 
-  <label for="poem_epigraph">Epigraph:</label>
-  <%= text_input f, :epigraph %>
+  <div>
+    <label for="poem_epigraph">Epigraph</label>
+    <%= text_input f, :epigraph %>
+  </div>
 
-  <label for="poem_author_id">Author</label>
-  <%= select f, :author_id, @authors %>
+  <div>
+    <label for="poem_author_id">Author
+      <span class="deemphasize">
+        <%= link "add author", to: Routes.author_page_path(@conn, :new) %>
+      </span>
+    </label>
+    <%= select f, :author_id, @authors %>
+  </div>
 
-  <label for="poem_content">Content</label>
-  <%= textarea f, :content %>
+  <div>
+    <label for="poem_content">Content</label>
+    <%= textarea f, :content %>
+  </div>
 
   <%= submit "Submit" %>
 <% end %>

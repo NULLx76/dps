@@ -66,12 +66,13 @@ His flashing eyes, his floating hair!
 Weave a circle round him thrice,
 And close your eyes with holy dread
 For he on honey-dew hath fed,
-And drunk the milk of Paradise."})
+And drunk the milk of Paradise."
+})
 
 Repo.insert!(%Poem{
-   author_id: robert_frost,
-   title: "The Road Not Taken",
-   content: "Two roads diverged in a yellow wood,
+  author_id: robert_frost,
+  title: "The Road Not Taken",
+  content: "Two roads diverged in a yellow wood,
 And sorry I could not travel both
 And be one traveler, long I stood
 And looked down one as far as I could
@@ -93,4 +94,5 @@ I shall be telling this with a sigh
 Somewhere ages and ages hence:
 Two roads diverged in a wood, and I—
 I took the one less traveled by,
-And that has made all the difference."})
+And that has made all the difference."
+})

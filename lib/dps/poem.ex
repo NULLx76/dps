@@ -26,26 +26,65 @@ end
 defmodule Dps.Poem.Query do
   import Ecto.Query
   alias Dps.{Repo, Poem}
+  alias Dps.Cache
 
   @spec get_all_poems :: nil | [%Poem{}]
   def get_all_poems do
-    from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title})
-    |> Repo.all()
-    |> Repo.preload(:author)
+    case Cache.get(:all_poems) do
+      nil ->
+        :telemetry.execute([:dps, :cache, :miss], %{all_poems: nil})
+
+        poems =
+          from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title})
+          |> Repo.all()
+          |> Repo.preload(:author)
+
+        Cache.put(:all_poems, poems)
+        poems
+
+      v ->
+        :telemetry.execute([:dps, :cache, :hit], %{all_poems: nil})
+        v
+    end
   end
 
   def get_all_poems_by_author(author_id) do
-    from(p in Poem,
-      select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
-      where: p.author_id == ^author_id)
-    |> Repo.all()
+    case Cache.get({:poem_by_author, author_id}) do
+      nil ->
+        :telemetry.execute([:dps, :cache, :miss], %{poem_by_author: author_id})
+
+        poems =
+          from(p in Poem,
+            select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
+            where: p.author_id == ^author_id
+          )
+          |> Repo.all()
+
+        Cache.put({:poem_by_author, author_id}, poems)
+
+      v ->
+        :telemetry.execute([:dps, :cache, :hit], %{poem_by_author: author_id})
+        v
+    end
   end
 
-  @spec get_poem_by_id(integer()) :: nil | %Poem{}
   def get_poem_by_id(id) do
-    Poem
-    |> Repo.get(id)
-    |> Repo.preload(:author)
+    case Cache.get({:poem, id}) do
+      nil ->
+        :telemetry.execute([:dps, :cache, :miss], %{poem: id})
+
+        poem =
+          Poem
+          |> Repo.get(id)
+          |> Repo.preload(:author)
+
+        Cache.put({:poem, id}, poem)
+        poem
+
+      v ->
+        :telemetry.execute([:dps, :cache, :hit], %{poem: id})
+        v
+    end
   end
 
   def create_poem(attrs \\ %{}) do

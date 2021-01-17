@@ -29,7 +29,7 @@ if config_env() == :prod do
       port: String.to_integer(System.get_env("PORT") || "4000"),
       transport_options: [socket_opts: [:inet6]]
     ],
-    url: [host: System.fetch_env!("APP_HOST"), port: 443],
+    url: [host: System.fetch_env!("APP_HOST"), port: System.fetch_env!("APP_PORT")],
     secret_key_base: secret_key_base
 
   config :dps, DpsWeb.Endpoint, server: true
@@ -41,8 +41,8 @@ if config_env() == :prod do
 
   service_name = System.fetch_env!("SERVICE_NAME")
 
-  config :peerage, via: Peerage.Via.Dns,
+  config :peerage,
+    via: Peerage.Via.Dns,
     dns_name: service_name,
     app_name: "dps"
-
 end

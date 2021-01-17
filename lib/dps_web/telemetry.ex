@@ -13,7 +13,7 @@ defmodule DpsWeb.Telemetry do
       # every 10_000ms. Learn more here: https://hexdocs.pm/telemetry_metrics
       {:telemetry_poller, measurements: periodic_measurements(), period: 10_000}
       # Add reporters as children of your supervision tree.
-      # {Telemetry.Metrics.ConsoleReporter, metrics: metrics()}
+      # {Telemetry.Metrics.ConsoleReporter, metrics: custom_metrics()}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
@@ -42,6 +42,22 @@ defmodule DpsWeb.Telemetry do
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
       summary("vm.total_run_queue_lengths.io")
+    ] ++ custom_metrics()
+  end
+
+  def custom_metrics do
+    [
+      # Cache Metrics
+      counter("dps.cache.hit.poem"),
+      counter("dps.cache.miss.poem"),
+      counter("dps.cache.hit.poem_by_author"),
+      counter("dps.cache.miss.poem_by_author"),
+      counter("dps.cache.hit.all_poems"),
+      counter("dps.cache.miss.all_poems"),
+      counter("dps.cache.hit.author_by_id"),
+      counter("dps.cache.miss.author_by_id"),
+      counter("dps.cache.hit.all_authors"),
+      counter("dps.cache.miss.all_authors")
     ]
   end
 

@@ -1,0 +1,12 @@
+<nav>
+    <a href="/poems">Poems</a> - <a href="/authors">Authors</a>
+    <hr>
+</nav>
+
+<h1><%= @author.name %></h1>
+
+<ul>
+<%= for poem <- @poems do %>
+    <li><a href="<%= Router.poem_id_to_url(poem.id) %>"><%= poem.title %></a></li>
+<% end %>
+</ul>

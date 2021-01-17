@@ -1,3 +1,7 @@
+body {
+    background-color: #FDFDFD;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -5,10 +9,6 @@
     align-items: center;
 
     font: 1rem 'Fira Sans', sans-serif;
-}
-
-.bold {
-    font-weight: bold;
 }
 
 nav {
@@ -46,12 +46,21 @@ h3 {
 
 /* Lists */
 
-dt {
+dt, li {
     font-weight: bold;
 }
 
 dd {
     margin-bottom: 1em;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
 }
 
 /* Poem Styling */

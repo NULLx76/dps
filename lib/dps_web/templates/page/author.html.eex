@@ -1,8 +1,0 @@
-<nav>
-    <a href="/poems">Poems</a> - <a href="/authors">Authors</a>
-    <hr>
-</nav>
-
-<h1><%= @author.name %></h1>
-
-<%= render("poem_list.html", poems: @poems, show_author: false) %>

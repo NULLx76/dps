@@ -1,11 +1,11 @@
 <nav>
-    <a href="/poems">Poems</a> - <span class="bold">Authors</span>
+    <a href="/poems">Poems</a> - <b>Authors</b>
     <hr>
 </nav>
 <dl>
 <%= for author <- @authors do %>
     <dt>
-      <a href="<%= author_id_to_url(author.id) %>">
+      <a href="<%= Router.author_id_to_url(author.id) %>">
         <%= author.name %>
     </dt>
 <% end %>

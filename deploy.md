@@ -16,7 +16,7 @@ mix ecto.reset
 
 # Run the program with dev parameters
 DATABASE_URL=ecto://postgres:postgres@localhost/dps_dev \
-RELEASE_COOKIE=foo \
+RELEASE_COOKIE=secret-cookie \
 SECRET_KEY_BASE=kZ3O750w/sd7CcXO9053xWGTlOW3dYtLORLiYKqOL25UwboP/TJZz5g+YhOVLzOy \
 HOSTNAME=127.0.0.1 \
 SERVICE_NAME=localhost.svc \
@@ -26,6 +26,24 @@ AUTH_USERNAME=user \
 AUTH_PASSWORD=pass \
 PORT=4000 \
 _build/prod/rel/dps/bin/dps start
+```
+
+## Smoke test docker
+```bash
+# first make sure no postgres container is running
+mix postgres stop
+
+# Start the docker-compose db
+docker-compose up -d db
+
+# Setup schema
+mix ecto.reset
+
+# Start dps itself
+docker-compose up -d dps
+
+# Verify its working
+curl localhost:4000/api/poems | jq
 ```
 
 ## References

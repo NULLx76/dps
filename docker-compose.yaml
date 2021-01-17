@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  dps:
+    image: dps
+    container_name: dps
+    environment:
+      LANG: C.UTF-8
+      DATABASE_URL: ecto://postgres:postgres@db/dps_dev
+      RELEASE_COOKIE: secret-cookie
+      SECRET_KEY_BASE: kZ3O750w/sd7CcXO9053xWGTlOW3dYtLORLiYKqOL25UwboP/TJZz5g+YhOVLzOy
+      SERVICE_NAME: dps
+      APP_HOST: localhost
+      APP_PORT: 4000
+      AUTH_PASSWORD: secret
+      AUTH_USERNAME: user
+      PORT: 4000
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+
+  db:
+    image: postgres:13
+    container_name: dps-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dps_dev
+      POSTGRES_PASSWORD: postgres

@@ -1,7 +1,6 @@
 defmodule Dps.Poem do
   use Ecto.Schema
-  import Ecto.Changeset
-  import Ecto.Query
+  import Ecto.{Changeset, Query}
   alias Dps.Author
 
   @derive {Jason.Encoder, only: [:id, :title, :epigraph, :content, :author, :author_id]}
@@ -28,8 +27,7 @@ end
 
 defmodule Dps.Poem.Query do
   import Ecto.Query
-  alias Dps.{Repo, Poem}
-  alias Dps.Cache
+  alias Dps.{Repo, Poem, Cache}
 
   @spec get_all_poems :: nil | [%Poem{}]
   def get_all_poems do

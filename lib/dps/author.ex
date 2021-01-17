@@ -22,8 +22,8 @@ defmodule Dps.Author do
 end
 
 defmodule Dps.Author.Query do
-  alias Dps.{Repo, Author, Cache}
   import Ecto.Query
+  alias Dps.{Repo, Author, Cache}
 
   def create_author(attrs \\ %{}) do
     %Author{}

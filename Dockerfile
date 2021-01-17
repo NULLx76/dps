@@ -21,7 +21,7 @@ RUN mkdir -p /opt/release && \
     mv _build/${MIX_ENV}/rel/dps /opt/release
 
 # Runner image
-FROM erlang:23-slim AS runner
+FROM erlang:23 AS runner
 
 WORKDIR /app/
 

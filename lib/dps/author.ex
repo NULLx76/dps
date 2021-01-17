@@ -23,6 +23,7 @@ end
 
 defmodule Dps.Author.Query do
   alias Dps.{Repo, Author, Cache}
+  import Ecto.Query
 
   def create_author(attrs \\ %{}) do
     %Author{}
@@ -30,8 +31,10 @@ defmodule Dps.Author.Query do
     |> Repo.insert()
   end
 
-  def all_authors do
-    Repo.all(Author)
+  def all_authors(sort_by \\ [asc: :name]) do
+    Author
+    |> order_by(^sort_by)
+    |> Repo.all()
   end
 
   def get_author_by_id(id) do

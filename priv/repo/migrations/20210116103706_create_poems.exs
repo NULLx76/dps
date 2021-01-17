@@ -11,6 +11,6 @@ defmodule Dps.Repo.Migrations.CreatePoems do
       timestamps()
     end
 
-    create unique_index(:poems, [:title])
+    create unique_index(:poems, [:title, :author_id])
   end
 end

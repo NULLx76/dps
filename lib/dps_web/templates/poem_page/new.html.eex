@@ -1,0 +1,18 @@
+<h1>Add Poem</h1>
+
+<%= form_for @changeset, Routes.poem_page_path(@conn, :create), fn f -> %>
+
+  <label for="poem_title">Title:</label>
+  <%= text_input f, :title %>
+
+  <label for="poem_epigraph">Epigraph:</label>
+  <%= text_input f, :epigraph %>
+
+  <label for="poem_author_id">Author</label>
+  <%= select f, :author_id, @authors %>
+
+  <label for="poem_content">Content</label>
+  <%= textarea f, :content %>
+
+  <%= submit "Submit" %>
+<% end %>

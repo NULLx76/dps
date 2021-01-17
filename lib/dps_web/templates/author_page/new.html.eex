@@ -1,7 +1,8 @@
+<h1>Add Author</h1>
+
 <%= form_for @changeset, Routes.author_page_path(@conn, :create), fn f -> %>
-  <label>
-    Name: <%= text_input f, :name %>
-  </label>
+  <label for="author_name">Name:</label>
+  <%= text_input f, :name %>
 
   <%= submit "Submit" %>
 <% end %>

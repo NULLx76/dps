@@ -26,6 +26,9 @@ defmodule DpsWeb.Router do
     get "/authors/new", AuthorPageController, :new
     post "/authors/new", AuthorPageController, :create
 
+    get "/poems/new", PoemPageController, :new
+    post "/poems/new", PoemPageController, :create
+
     live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
   end
 

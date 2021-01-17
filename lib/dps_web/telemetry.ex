@@ -50,14 +50,8 @@ defmodule DpsWeb.Telemetry do
       # Cache Metrics
       counter("dps.cache.hit.poem"),
       counter("dps.cache.miss.poem"),
-      counter("dps.cache.hit.poem_by_author"),
-      counter("dps.cache.miss.poem_by_author"),
-      counter("dps.cache.hit.all_poems"),
-      counter("dps.cache.miss.all_poems"),
       counter("dps.cache.hit.author_by_id"),
-      counter("dps.cache.miss.author_by_id"),
-      counter("dps.cache.hit.all_authors"),
-      counter("dps.cache.miss.all_authors")
+      counter("dps.cache.miss.author_by_id")
     ]
   end
 

@@ -1,5 +1,5 @@
 <nav>
-    <a href="/poems">Poems</a> - <a href="/authors">Authors</a>
+    <%= link "Poems", to: Routes.poem_page_path(@conn, :index) %> - <%= link "Authors", to: Routes.author_page_path(@conn, :index) %>
     <hr>
 </nav>
 
@@ -7,6 +7,6 @@
 
 <ul>
 <%= for poem <- @poems do %>
-    <li><a href="<%= Router.poem_id_to_url(poem.id) %>"><%= poem.title %></a></li>
+    <li><%= link poem.title, to: Routes.poem_page_path(@conn, :show, poem.id) %></li>
 <% end %>
 </ul>

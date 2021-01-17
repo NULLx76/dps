@@ -1,5 +1,5 @@
 <nav>
-    <a href="/poems">Poems</a> - <a href="/authors">Authors</a>
+    <%= link "Poems", to: Routes.poem_page_path(@conn, :index) %> - <%= link "Authors", to: Routes.author_page_path(@conn, :index) %>
     <hr>
 </nav>
 
@@ -7,19 +7,17 @@
     <header>
         <h2 class="title"><%= @poem.title %></h2>
         <h3 class="author">
-            <a href="<%= Router.author_id_to_url(@poem.author.id) %>">
-                <%= @poem.author.name %>
-            </a>
+            <%= link @poem.author.name, to: Routes.author_page_path(@conn, :show, @poem.author.id) %>
         </h3>
     </header>
 
     <%= if @poem.epigraph do %>
-    <section class="epigraph">
+    <blockquote>
         <%= @poem.epigraph %>
-    </section>
+    </blockquote>
     <% end %>
 
-    <section class="content">
+    <pre>
         <%= @poem.content %>
-    </section>
+    </pre>
 </article>

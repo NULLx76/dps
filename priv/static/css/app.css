@@ -77,11 +77,13 @@ li {
     margin-top: 0;
 }
 
-.epigraph {
+blockquote {
     font-style: italic;
-    padding-left: 1em;
+    margin-left: 1em;
 }
 
-.content {
+pre {
     white-space: pre;
+    font-family: inherit;
+    margin: 1em 0;
 }

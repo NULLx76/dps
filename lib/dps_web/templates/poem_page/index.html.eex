@@ -1,19 +1,16 @@
 <nav>
-    <b>Poems</b> - <a href="/authors">Authors</a>
-    <hr>
+  <b>Poems</b> - <%= link "Authors", to: Routes.author_page_path(@conn, :index) %>
+  <hr>
 </nav>
-<dl>
+
+<dl role="list">
 <%= for poem <- @poems do %>
-    <dt>
-      <a href="<%= Router.poem_id_to_url(poem.id) %>">
-        <%= poem.title %>
-      </a>
-    </dt>
-    <dd>
-      by
-      <a href="<%= Router.author_id_to_url(poem.author.id) %>">
-        <%= poem.author.name %>
-      </a>
-    </dd>
+  <dt>
+    <%= link poem.title, to: Routes.poem_page_path(@conn, :show, poem.id) %>
+  </dt>
+  <dd>
+    by
+    <%= link poem.author.name, to: Routes.author_page_path(@conn, :show, poem.author.id) %>
+  </dd>
 <% end %>
 </dl>

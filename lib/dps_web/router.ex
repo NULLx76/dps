@@ -18,14 +18,6 @@ defmodule DpsWeb.Router do
     Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:dps, :basic_auth))
   end
 
-  def poem_id_to_url(id) do
-    "/poems/" <> Integer.to_string(id)
-  end
-
-  def author_id_to_url(id) do
-    "/authors/" <> Integer.to_string(id)
-  end
-
   # Browser pages
   scope "/", DpsWeb do
     pipe_through :browser

@@ -16,7 +16,7 @@ defmodule DpsWeb.PoemController do
     with {:ok, %Poem{} = poem} <- Poem.Query.create_poem(params) do
       conn
       |> put_status(:created)
-      |> json(poem)
+      |> json(%Poem{poem | author: nil, author_id: Map.get(params, "author_id")})
     end
   end
 end

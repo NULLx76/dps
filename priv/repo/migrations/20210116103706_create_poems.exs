@@ -10,5 +10,7 @@ defmodule Dps.Repo.Migrations.CreatePoems do
 
       timestamps()
     end
+
+    create unique_index(:poems, [:title])
   end
 end

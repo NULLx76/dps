@@ -1,7 +1,7 @@
 # Deployment notes
 Some notes on how to deploy this application and how the deployment configuration works
 
-## Smoke Test
+## Smoke Test Release
 To smoke test the application in release mode do the following:
 
 ```bash

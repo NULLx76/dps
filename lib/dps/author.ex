@@ -17,6 +17,7 @@ defmodule Dps.Author do
     author
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> unique_constraint(:name)
   end
 end
 
@@ -30,16 +31,7 @@ defmodule Dps.Author.Query do
   end
 
   def all_authors do
-    case Cache.get(:all_authors) do
-      nil ->
-        :telemetry.execute([:dps, :cache, :miss], %{all_authors: nil})
-        authors = Repo.all(Author)
-        Cache.put(:all_authors, authors)
-
-      v ->
-        :telemetry.execute([:dps, :cache, :hit], %{all_authors: nil})
-        v
-    end
+    Repo.all(Author)
   end
 
   def get_author_by_id(id) do

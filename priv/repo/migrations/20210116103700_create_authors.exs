@@ -7,5 +7,7 @@ defmodule Dps.Repo.Migrations.CreateAuthors do
 
       timestamps()
     end
+
+    create unique_index(:authors, [:name])
   end
 end

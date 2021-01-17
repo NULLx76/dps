@@ -4,7 +4,7 @@ defmodule Dps.Poem do
   import Ecto.Query
   alias Dps.Author
 
-  @derive {Jason.Encoder, only: [:id, :title, :epigraph, :content, :author]}
+  @derive {Jason.Encoder, only: [:id, :title, :epigraph, :content, :author, :author_id]}
   schema "poems" do
     field :title, :string
     field :epigraph, :string
@@ -20,6 +20,9 @@ defmodule Dps.Poem do
     poem
     |> cast(attrs, [:title, :epigraph, :content, :author_id])
     |> validate_required([:title, :content, :author_id])
+    |> validate_length(:epigraph, max: 255)
+    |> unique_constraint(:title)
+    |> foreign_key_constraint(:author_id)
   end
 end
 
@@ -30,42 +33,17 @@ defmodule Dps.Poem.Query do
 
   @spec get_all_poems :: nil | [%Poem{}]
   def get_all_poems do
-    case Cache.get(:all_poems) do
-      nil ->
-        :telemetry.execute([:dps, :cache, :miss], %{all_poems: nil})
-
-        poems =
-          from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title})
-          |> Repo.all()
-          |> Repo.preload(:author)
-
-        Cache.put(:all_poems, poems)
-        poems
-
-      v ->
-        :telemetry.execute([:dps, :cache, :hit], %{all_poems: nil})
-        v
-    end
+    from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title})
+    |> Repo.all()
+    |> Repo.preload(:author)
   end
 
   def get_all_poems_by_author(author_id) do
-    case Cache.get({:poem_by_author, author_id}) do
-      nil ->
-        :telemetry.execute([:dps, :cache, :miss], %{poem_by_author: author_id})
-
-        poems =
-          from(p in Poem,
-            select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
-            where: p.author_id == ^author_id
-          )
-          |> Repo.all()
-
-        Cache.put({:poem_by_author, author_id}, poems)
-
-      v ->
-        :telemetry.execute([:dps, :cache, :hit], %{poem_by_author: author_id})
-        v
-    end
+    from(p in Poem,
+      select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
+      where: p.author_id == ^author_id
+    )
+    |> Repo.all()
   end
 
   def get_poem_by_id(id) do

@@ -29,23 +29,20 @@ if config_env() == :prod do
       port: String.to_integer(System.get_env("PORT") || "4000"),
       transport_options: [socket_opts: [:inet6]]
     ],
+    url: [host: System.fetch_env!("APP_HOST"), port: 443],
     secret_key_base: secret_key_base
 
   config :dps, DpsWeb.Endpoint, server: true
 
-  auth_user =
-    System.get_env("AUTH_USERNAME") ||
-      raise """
-      environment variable AUTH_USERNAME is missing.
-      This is used for authenticating admin routes.
-      """
-
-  auth_pass =
-    System.get_env("AUTH_PASSWORD") ||
-      raise """
-      environment variable AUTH_USERNAME is missing.
-      This is used for authenticating admin routes.
-      """
+  auth_user = System.fetch_env!("AUTH_USERNAME")
+  auth_pass = System.fetch_env!("AUTH_PASSWORD")
 
   config :dps, :basic_auth, username: auth_user, password: auth_pass
+
+  service_name = System.fetch_env!("SERVICE_NAME")
+
+  config :peerage, via: Peerage.Via.Dns,
+    dns_name: service_name,
+    app_name: "dps"
+
 end

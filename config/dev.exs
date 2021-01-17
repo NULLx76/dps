@@ -42,3 +42,9 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :dps, :basic_auth, username: "user", password: "secret"
+
+# Set peerage to static for development
+config :peerage,
+  via: Peerage.Via.List,
+  node_list: [:"dps@127.0.0.1"],
+  log_results: false

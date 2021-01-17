@@ -4,7 +4,6 @@ defmodule DpsWeb.PoemPageController do
 
   def index(conn, _params) do
     poems = Poem.Query.get_all_poems()
-
     render(conn, "index.html", poems: poems)
   end
 

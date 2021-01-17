@@ -20,7 +20,7 @@ defmodule Dps.MixProject do
   def application do
     [
       mod: {Dps.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :peerage]
     ]
   end
 
@@ -44,7 +44,8 @@ defmodule Dps.MixProject do
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:peerage, "~> 1.0"}
     ]
   end
 

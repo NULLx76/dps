@@ -26,8 +26,12 @@ defmodule DpsWeb.AuthorPageController do
   def create(conn, params) do
     author = get_in(params, ["author"])
 
-    with {:ok, %Author{}} <- Author.Query.create_author(author) do
-      redirect(conn, to: Routes.author_page_path(conn, :index))
+    with {:ok, %Author{id: id}} <- Author.Query.create_author(author) do
+      redirect(conn, to: Routes.poem_page_path(conn, :new, %{"author" => id}))
+    else {:error, changeset} ->
+      conn
+      |> put_flash(:error, "Invalid author")
+      |> render("new.html", changeset: changeset)
     end
   end
 end

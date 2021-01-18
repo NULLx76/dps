@@ -3,26 +3,27 @@
 <%= form_for @changeset, Routes.poem_page_path(@conn, :create), [class: "new"], fn f -> %>
 
   <div>
-    <label for="poem_title">Title</label>
+    <%= label f, :title %>
+    <%= error_tag f, :title %>
     <%= text_input f, :title %>
   </div>
 
   <div>
-    <label for="poem_epigraph">Epigraph</label>
+    <%= label f, :epigraph %>
+    <%= error_tag f, :epigraph %>
     <%= text_input f, :epigraph %>
   </div>
 
   <div>
-    <label for="poem_author_id">Author
-      <span class="deemphasize">
-        <%= link "add author", to: Routes.author_page_path(@conn, :new) %>
-      </span>
-    </label>
-    <%= select f, :author_id, @authors %>
+    <%= label f, :author_id %>
+    <%= error_tag f, :author_id %>
+    <span class="deemphasize"><%= link "add author", to: Routes.author_page_path(@conn, :new) %></span>
+    <%= select f, :author_id, @authors, [selected: @select] %>
   </div>
 
   <div>
-    <label for="poem_content">Content</label>
+    <%= label f, :content %>
+    <%= error_tag f, :content %>
     <%= textarea f, :content %>
   </div>
 

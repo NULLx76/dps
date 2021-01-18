@@ -1,4 +1,5 @@
 /* Variables */
+
 :root {
     --text: black;
     --text-inverted: white;
@@ -9,9 +10,11 @@
     --accent: #483d8b;
     --accent-dark: #342c66;
     --rad: .3rem;
+    --error: #f03434;
 }
 
 /* Main Content */
+
 body {
     background-color: var(--bg);
 }
@@ -26,7 +29,6 @@ main.container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     font: 1rem 'Fira Sans', sans-serif;
 }
 
@@ -34,6 +36,33 @@ nav {
     font-size: 2rem;
     padding-top: 0.75rem;
     padding-bottom: 0.5rem;
+}
+
+/* Alerts */
+
+.alert {
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    padding: 1rem;
+    border-radius: var(--rad);
+}
+
+.alert:empty {
+    display: none;
+}
+
+.alert-info {
+    background-color: #2196F3;
+    opacity: 0.9;
+}
+
+.alert-danger {
+    background-color: var(--error);
+}
+
+.invalid-feedback {
+    color: var(--error);
 }
 
 /* Links */
@@ -84,6 +113,7 @@ li {
 }
 
 /* Poem Styling */
+
 article.poem {
     max-width: 95vw;
 }
@@ -115,6 +145,7 @@ pre {
 }
 
 /* New Poem/Author Form */
+
 form.new {
     width: 50rem;
     max-width: 90%;
@@ -125,14 +156,12 @@ form.new label {
 }
 
 form.new span.deemphasize {
-    color: var(--secondary); 
+    color: var(--secondary);
     opacity: 0.9;
     font-size: 1rem;
 }
 
-form.new select,
-form.new input[type=text], 
-form.new textarea {
+form.new select, form.new input[type=text], form.new textarea {
     width: 100%;
     padding: 1.2em 2em;
     margin: 0.5em 0;
@@ -157,6 +186,7 @@ form.new button[type="submit"] {
 }
 
 /* Search form */
+
 form.search {
     position: relative;
     margin: 0 0 .3rem 0;
@@ -177,7 +207,6 @@ form.search input[type=search] {
     padding: 0 0.5rem;
     border-radius: var(--rad) 0 0 var(--rad);
     position: relative;
-
     color: var(--secondary-text);
 }
 

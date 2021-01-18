@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dps
+  labels:
+    app: dps
+    keel.sh/policy: force
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dps
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 34%
+      maxUnavailable: 34%
+  template:
+    metadata:
+      name: dps
+      labels:
+        app: dps
+    spec:
+      containers:
+      - name: dps
+        image: dps:latest
+        ports:
+          - containerPort: 4000
+        env:
+          - name: LANG
+            value: C.UTF-8
+          - name: APP_HOST
+            value: example.com
+          - name: APP_PORT
+            value: "443"
+          - name: AUTH_USERNAME
+            value: user
+          - name: AUTH_PASSWORD
+            value: secret
+          - name: DATABASE_URL
+            value: ecto://postgres:postgres@postgres/dps_prod
+          - name: HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: PORT
+            value: "4000"
+          - name: RELEASE_COOKIE
+            value: secret-cookie
+          - name: SECRET_KEY_BASE
+            value: secret-key-base
+          - name: SERVICE_NAME
+            value: dps-private.default.svc.cluster.local
+        resources: {}
+        securityContext:
+          privileged: false
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

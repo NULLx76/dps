@@ -1,6 +1,9 @@
 # Deployment notes
 Some notes on how to deploy this application and how the deployment configuration works
 
+## K8s Deployment
+For deploying on k8s the files in `k8s` give an example of how to do so.
+
 ## Smoke Test Release
 To smoke test the application in release mode do the following:
 

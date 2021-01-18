@@ -1,3 +1,4 @@
+/* Defines 'Fira Sans' and 'Droid Serif' */
 @import "font.css";
 
 /* Variables */
@@ -9,8 +10,6 @@
     --border: #ccc;
     --accent: darkslateblue;
 }
-
-
 
 /* Main Content */
 body {

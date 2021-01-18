@@ -1,19 +1,24 @@
-/* Defines 'Fira Sans' and 'Droid Serif' */
-@import "font.css";
-
 /* Variables */
 :root {
     --text: black;
     --text-inverted: white;
     --bg: #fdfdfd;
-    --secondary: #444;
-    --border: #ccc;
-    --accent: darkslateblue;
+    --secondary: darkslategray;
+    --secondary-light: lightgray;
+    --secondary-text: #2d2d2d;
+    --accent: #483d8b;
+    --accent-dark: #342c66;
+    --rad: .3rem;
 }
 
 /* Main Content */
 body {
     background-color: var(--bg);
+}
+
+hr {
+    padding: 0;
+    margin: 0.3rem 0;
 }
 
 main.container {
@@ -68,7 +73,7 @@ dd {
     margin-bottom: 1em;
 }
 
-ul {
+dl, ul {
     padding: 0;
     margin: 0;
 }
@@ -103,50 +108,93 @@ blockquote {
 
 pre {
     white-space: pre;
-    font-family: 'Droid Serif';
+    font-family: 'Droid Serif', serif;
     line-height: 1.4;
     margin: 1em 0;
     font-size-adjust: inherit;
 }
 
-/* Forms */
-form {
+/* New Poem/Author Form */
+form.new {
     width: 50rem;
     max-width: 90%;
 }
 
-form label {
+form.new label {
     font-size: 1.2rem;
 }
 
-form span.deemphasize {
+form.new span.deemphasize {
     color: var(--secondary); 
     opacity: 0.9;
     font-size: 1rem;
 }
 
-form input[type=text], 
-form select,
-form textarea {
+form.new select,
+form.new input[type=text], 
+form.new textarea {
     width: 100%;
     padding: 1.2em 2em;
     margin: 0.5em 0;
-    border: 1px solid var(--border);
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: var(--rad);
     box-sizing: border-box;
 }
 
-form textarea {
+form.new textarea {
     height: 35vh;
 }
 
-form button[type="submit"] {
+form.new button[type="submit"] {
     width: 100%;
     background-color: var(--accent);
     color: var(--text-inverted);
     padding: 1.2em 2em;
     margin: 0.5em 0;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--rad);
     cursor: pointer;
+}
+
+/* Search form */
+form.search {
+    position: relative;
+    margin: 0 0 .3rem 0;
+    padding: 0;
+}
+
+form.search input, form.search button {
+    height: 2rem;
+    border: 0;
+    font-size: 1rem;
+}
+
+form.search input[type=search] {
+    appearance: none;
+    outline-width: thin;
+    width: calc(100% - 3rem);
+    background: var(--secondary-light);
+    padding: 0 0.5rem;
+    border-radius: var(--rad) 0 0 var(--rad);
+    position: relative;
+
+    color: var(--secondary-text);
+}
+
+form.search button[type="submit"] {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-family: ddg-serp-icons;
+    background: var(--accent);
+    width: 3rem;
+    border-radius: 0 var(--rad) var(--rad) 0;
+    cursor: pointer;
+    color: var(--text-inverted);
+    transition: all .15s ease-in;
+    transition-property: background;
+}
+
+form.search button[type="submit"]:hover {
+    background: var(--accent-dark);
 }

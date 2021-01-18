@@ -3,27 +3,31 @@
     font-family: 'Droid Serif';
     font-style: normal;
     font-weight: normal;
-    src: url("../fonts/DroidSerif/DroidSerif-Regular.ttf")
+    src: local('Droid Serif Regular'), local("DroidSerif-Regular"), url("../fonts/DroidSerif/DroidSerif-Regular.ttf");
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Droid Serif';
     font-style: normal;
     font-weight: bold;
-    src: url("../fonts/DroidSerif/DroidSerif-Bold.ttf")
+    src: url("../fonts/DroidSerif/DroidSerif-Bold.ttf");
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Droid Serif';
     font-style: italic;
     font-weight: normal;
-    src: url("../fonts/DroidSerif/DroidSerif-Italic.ttf")
+    font-display: swap;
+    src: url("../fonts/DroidSerif/DroidSerif-Italic.ttf");
 }
 
 @font-face {
     font-family: 'Droid Serif';
     font-style: italic;
     font-weight: bold;
+    font-display: swap;
     src: url("../fonts/DroidSerif/DroidSerif-BoldItalic.ttf")
 }
 
@@ -31,6 +35,7 @@
 @font-face {
     font-family: 'Fira Sans';
     font-weight: bold;
+    font-display: swap;
     font-style: normal;
     src: url("../fonts/FiraSans/FiraSans-Bold.otf")
 }
@@ -38,6 +43,7 @@
 @font-face {
     font-family: 'Fira Sans';
     font-weight: bold;
+    font-display: swap;
     font-style: italic;
     src: url("../fonts/FiraSans/FiraSans-BoldItalic.otf")
 }
@@ -45,6 +51,7 @@
 @font-face {
     font-family: 'Fira Sans';
     font-weight: normal;
+    font-display: swap;
     font-style: italic;
     src: url("../fonts/FiraSans/FiraSans-Italic.otf")
 }
@@ -52,6 +59,7 @@
 @font-face {
     font-family: 'Fira Sans';
     font-weight: 200;
+    font-display: swap;
     font-style: normal;
     src: url("../fonts/FiraSans/FiraSans-Light.otf")
 }
@@ -59,13 +67,21 @@
 @font-face {
     font-family: 'Fira Sans';
     font-weight: 200;
+    font-display: swap;
     font-style: italic;
     src: url("../fonts/FiraSans/FiraSans-LightItalic.otf")
 }
 
 @font-face {
     font-family: 'Fira Sans';
+    font-display: swap;
     font-weight: normal;
     font-style: normal;
-    src: url("../fonts/FiraSans/FiraSans-Regular.otf")
+    src: local("Fira Sans"), local("FiraSans-Regular"), local("Fira Sans Regular"), url("../fonts/FiraSans/FiraSans-Regular.otf")
+}
+
+@font-face {
+    font-family: ddg-serp-icons;
+    font-display: swap;
+    src: url("../fonts/ddg-serp-icons.woff")
 }

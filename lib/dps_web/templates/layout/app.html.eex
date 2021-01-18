@@ -4,8 +4,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%= if assigns[:title] do @title else "Poems" end %></title>
+    <title><%= assigns[:title] || "Poems" %></title>
     <meta name="description" content="A personal collection of poems" />
+    <link rel="preload" href="<%= Routes.static_path(@conn, "/fonts/ddg-serp-icons.woff") %>" as="font" crossorigin>
+    <link rel="preload" href="<%= Routes.static_path(@conn, "/fonts/FiraSans/FiraSans-Regular.otf") %>" as="font" crossorigin>
+    <link rel="preload" href="<%= Routes.static_path(@conn, "/fonts/FiraSans/FiraSans-Bold.otf") %>" as="font" crossorigin>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/font.css") %>"/>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>

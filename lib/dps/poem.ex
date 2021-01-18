@@ -30,9 +30,12 @@ defmodule Dps.Poem.Query do
   alias Dps.{Repo, Poem, Cache}
 
   @spec get_all_poems :: nil | [%Poem{}]
-  def get_all_poems do
+  def get_all_poems(search \\ "") do
+    wildcard_search = "%#{search}%"
+
     from(p in Poem,
       select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
+      where: ilike(p.title, ^wildcard_search),
       order_by: [desc: p.id]
     )
     |> Repo.all()

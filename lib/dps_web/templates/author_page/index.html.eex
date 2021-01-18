@@ -1,11 +1,15 @@
 <nav>
-    <%= link "Poems", to: Routes.poem_page_path(@conn, :index) %> - <b>Authors</b>
-    <hr>
+  <%= link "Poems", to: Routes.poem_page_path(@conn, :index) %> - <b><%= link "Authors", to: Routes.author_page_path(@conn, :index) %></b>
+  <hr>
+  <%= form_for @conn, Routes.author_page_path(@conn, :index), [method: :get, class: "search"], fn f -> %>
+    <%= search_input f, :query, [placeholder: "search author"] %>
+    <%= submit "S" %>
+  <% end %>
 </nav>
 <ul>
 <%= for author <- @authors do %>
-    <li>
-      <%= link author.name, to: Routes.author_page_path(@conn, :show, author.id) %>
-    </li>
+  <li>
+    <%= link author.name, to: Routes.author_page_path(@conn, :show, author.id) %>
+  </li>
 <% end %>
 </ul>

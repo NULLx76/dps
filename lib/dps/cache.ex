@@ -25,6 +25,10 @@ defmodule Dps.Cache do
     GenServer.cast(DpsCache, {:delete, key})
   end
 
+  def clear do
+    GenServer.cast(DpsCache, :clear)
+  end
+
   ### internal API
   def handle_call({:get, key}, _from, state) do
     reply =
@@ -43,6 +47,11 @@ defmodule Dps.Cache do
 
   def handle_cast({:delete, key}, state) do
     :ets.delete(@cache_table, key)
+    {:noreply, state}
+  end
+
+  def handle_cast(:clear, state) do
+    :ets.delete_all_objects(@cache_table)
     {:noreply, state}
   end
 end

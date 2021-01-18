@@ -99,9 +99,9 @@ And that has made all the difference."
 })
 
 Repo.insert!(%Poem{
-   author_id: edgar_allan_poe,
-   title: "The Raven",
-   content: "Once upon a midnight dreary, while I pondered, weak and weary,
+  author_id: edgar_allan_poe,
+  title: "The Raven",
+  content: "Once upon a midnight dreary, while I pondered, weak and weary,
 Over many a quaint and curious volume of forgotten lore—
       While I nodded, nearly napping, suddenly there came a tapping,
 As of some one gently rapping, rapping at my chamber door.
@@ -225,4 +225,5 @@ On the pallid bust of Pallas just above my chamber door;
       And his eyes have all the seeming of a demon’s that is dreaming,
       And the lamp-light o’er him streaming throws his shadow on the floor;
 And my soul from out that shadow that lies floating on the floor
-            Shall be lifted—nevermore!"})
+            Shall be lifted—nevermore!"
+})

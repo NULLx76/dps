@@ -31,10 +31,14 @@ defmodule Dps.Author.Query do
     |> Repo.insert()
   end
 
-  def all_authors(sort_by \\ [asc: :name]) do
-    Author
-    |> order_by(^sort_by)
-    |> Repo.all
+  def all_authors(query \\ "", sort_by \\ [asc: :name]) do
+    wildcard_query = "%#{query}%"
+
+    from(a in Author,
+      order_by: ^sort_by,
+      where: ilike(a.name, ^wildcard_query)
+    )
+    |> Repo.all()
   end
 
   def get_author_by_id(id) do

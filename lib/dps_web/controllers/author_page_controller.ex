@@ -2,8 +2,10 @@ defmodule DpsWeb.AuthorPageController do
   use DpsWeb, :controller
   alias Dps.{Poem, Author}
 
-  def index(conn, _params) do
-    authors = Author.Query.all_authors()
+  def index(conn, params) do
+    query = get_in(params, ["query"])
+
+    authors = Author.Query.all_authors(query)
     render(conn, "index.html", authors: authors, title: "Authors")
   end
 
@@ -22,7 +24,7 @@ defmodule DpsWeb.AuthorPageController do
   end
 
   def create(conn, params) do
-    %{"author" => author} = params
+    author = get_in(params, ["author"])
 
     with {:ok, %Author{}} <- Author.Query.create_author(author) do
       redirect(conn, to: Routes.author_page_path(conn, :index))

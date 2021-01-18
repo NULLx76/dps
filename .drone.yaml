@@ -1,0 +1,18 @@
+---
+kind: pipeline
+type: kubernetes
+name: default
+steps:
+  - name: kaniko
+    image: harbor.xirion.net/finitum/drone-kaniko:0.7.0
+    when:
+      branch: [main]
+    settings:
+      cache: true
+      username:
+        from_secret: REGISTRY_USER
+      password:
+        from_secret: REGISTRY_PASSWORD
+      registry: harbor.xirion.net
+      repo: library/dps   
+      tags: latest

@@ -31,7 +31,10 @@ defmodule Dps.Poem.Query do
 
   @spec get_all_poems :: nil | [%Poem{}]
   def get_all_poems do
-    from(p in Poem, select: %Poem{id: p.id, author_id: p.author_id, title: p.title})
+    from(p in Poem,
+      select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
+      order_by: [desc: p.id]
+    )
     |> Repo.all()
     |> Repo.preload(:author)
   end
@@ -39,7 +42,8 @@ defmodule Dps.Poem.Query do
   def get_all_poems_by_author(author_id) do
     from(p in Poem,
       select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
-      where: p.author_id == ^author_id
+      where: p.author_id == ^author_id,
+      order_by: [asc: p.title]
     )
     |> Repo.all()
   end

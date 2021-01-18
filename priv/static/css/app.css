@@ -75,6 +75,7 @@ ul {
 
 li {
     list-style-type: none;
+    margin-bottom: 0.3em;
 }
 
 /* Poem Styling */

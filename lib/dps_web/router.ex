@@ -20,8 +20,7 @@ defmodule DpsWeb.Router do
 
   # Authenticated Browser pages
   scope "/", DpsWeb do
-    pipe_through :browser
-    pipe_through :auth
+    pipe_through [:browser, :auth]
 
     get "/authors/new", AuthorPageController, :new
     post "/authors/new", AuthorPageController, :create
@@ -57,8 +56,7 @@ defmodule DpsWeb.Router do
 
   # Authenticated api
   scope "/api", DpsWeb do
-    pipe_through :api
-    pipe_through :auth
+    pipe_through [:api, :auth]
 
     post "/authors", AuthorController, :create
     post "/poems", PoemController, :create

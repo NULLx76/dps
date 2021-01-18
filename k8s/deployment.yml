@@ -26,6 +26,7 @@ spec:
         image: dps:latest
         ports:
           - containerPort: 4000
+          - containerPort: 9568
         env:
           - name: LANG
             value: C.UTF-8

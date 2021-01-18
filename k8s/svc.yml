@@ -18,5 +18,7 @@ spec:
   ports:
   - name: http
     port: 4000
+  - name: metrics
+    port: 9568
   selector:
     app: dps

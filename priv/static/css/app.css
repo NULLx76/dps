@@ -16,7 +16,7 @@ body {
     background-color: var(--bg);
 }
 
-.container {
+main.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,16 +79,20 @@ li {
 }
 
 /* Poem Styling */
-.author::before {
+article.poem {
+    max-width: 95vw;
+}
+
+h2.title {
+    margin-bottom: 0;
+}
+
+h3.author::before {
     content: "by ";
     font-style: italic;
 }
 
-.title {
-    margin-bottom: 0;
-}
-
-.author {
+h3.author {
     margin-top: 0;
 }
 

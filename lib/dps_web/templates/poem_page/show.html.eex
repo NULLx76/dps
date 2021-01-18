@@ -3,7 +3,7 @@
     <hr>
 </nav>
 
-<article>
+<article class="poem">
     <header>
         <h2 class="title"><%= @poem.title %></h2>
         <h3 class="author">

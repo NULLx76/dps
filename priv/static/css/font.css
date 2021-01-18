@@ -1,0 +1,71 @@
+/* DroidSerif is licensed under the apache license */
+@font-face {
+    font-family: 'Droid Serif';
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/DroidSerif/DroidSerif-Regular.ttf")
+}
+
+@font-face {
+    font-family: 'Droid Serif';
+    font-style: normal;
+    font-weight: bold;
+    src: url("../fonts/DroidSerif/DroidSerif-Bold.ttf")
+}
+
+@font-face {
+    font-family: 'Droid Serif';
+    font-style: italic;
+    font-weight: normal;
+    src: url("../fonts/DroidSerif/DroidSerif-Italic.ttf")
+}
+
+@font-face {
+    font-family: 'Droid Serif';
+    font-style: italic;
+    font-weight: bold;
+    src: url("../fonts/DroidSerif/DroidSerif-BoldItalic.ttf")
+}
+
+/* Fira Sans */
+@font-face {
+    font-family: 'Fira Sans';
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/FiraSans/FiraSans-Bold.otf")
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/FiraSans/FiraSans-BoldItalic.otf")
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/FiraSans/FiraSans-Italic.otf")
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-weight: 200;
+    font-style: normal;
+    src: url("../fonts/FiraSans/FiraSans-Light.otf")
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-weight: 200;
+    font-style: italic;
+    src: url("../fonts/FiraSans/FiraSans-LightItalic.otf")
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/FiraSans/FiraSans-Regular.otf")
+}

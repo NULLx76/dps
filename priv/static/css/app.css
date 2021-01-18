@@ -1,3 +1,5 @@
+@import "font.css";
+
 /* Variables */
 :root {
     --text: black;
@@ -7,6 +9,8 @@
     --border: #ccc;
     --accent: darkslateblue;
 }
+
+
 
 /* Main Content */
 body {
@@ -95,8 +99,10 @@ blockquote {
 
 pre {
     white-space: pre;
-    font-family: inherit;
+    font-family: 'Droid Serif';
+    line-height: 1.4;
     margin: 1em 0;
+    font-size-adjust: inherit;
 }
 
 /* Forms */

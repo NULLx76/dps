@@ -8,6 +8,7 @@ steps:
   commands:
     - mix local.rebar --force
     - mix local.hex --force
+    - mix deps.get
     - mix test
 - name: kaniko
   image: harbor.xirion.net/finitum/drone-kaniko:0.7.0

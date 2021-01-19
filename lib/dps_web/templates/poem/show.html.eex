@@ -1,5 +1,6 @@
 <nav>
-    <%= link "Poems", to: Routes.poem_page_path(@conn, :index) %> - <%= link "Authors", to: Routes.author_page_path(@conn, :index) %>
+    <%= link "Poems", to: Routes.poem_path(@conn, :index) %> -
+    <%= link "Authors", to: Routes.author_path(@conn, :index) %>
     <hr>
 </nav>
 
@@ -7,7 +8,7 @@
     <header>
         <h2 class="title"><%= @poem.title %></h2>
         <h3 class="author">
-            <%= link @poem.author.name, to: Routes.author_page_path(@conn, :show, @poem.author.id) %>
+            <%= link @poem.author.name, to: Routes.author_path(@conn, :show, @poem.author.id) %>
         </h3>
     </header>
 

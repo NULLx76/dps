@@ -1,0 +1,13 @@
+<nav>
+    <%= link "Poems", to: Routes.poem_path(@conn, :index) %> -
+    <%= link "Authors", to: Routes.author_path(@conn, :index) %>
+    <hr>
+</nav>
+
+<h1><%= @author.name %></h1>
+
+<ul>
+    <%= for poem <- @poems do %>
+        <li><%= link poem.title, to: Routes.poem_path(@conn, :show, poem.id) %></li>
+    <% end %>
+</ul>

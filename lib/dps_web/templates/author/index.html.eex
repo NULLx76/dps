@@ -1,0 +1,16 @@
+<nav>
+  <%= link "Poems", to: Routes.poem_path(@conn, :index) %> -
+  <b><%= link "Authors", to: Routes.author_path(@conn, :index) %></b>
+  <hr>
+  <%= form_for @conn, Routes.author_path(@conn, :index), [method: :get, class: "search"], fn f -> %>
+    <%= search_input f, :query, [placeholder: "search author"] %>
+    <%= submit "S" %>
+  <% end %>
+</nav>
+<ul>
+  <%= for author <- @authors do %>
+  <li>
+    <%= link author.name, to: Routes.author_path(@conn, :show, author.id) %>
+  </li>
+  <% end %>
+</ul>

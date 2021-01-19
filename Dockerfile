@@ -1,4 +1,4 @@
-FROM elixir:1.11 AS builder
+FROM elixir:1.11-alpine AS builder
 
 ENV MIX_ENV=prod
 
@@ -6,11 +6,11 @@ WORKDIR /build/dps
 
 # Download + Compile dependencies
 RUN mix local.rebar --force && mix local.hex --force
-COPY mix.* .
+COPY mix.exs mix.lock ./
+COPY config config
 RUN mix do deps.get, deps.compile
 
 # Compile static assets
-COPY config config
 COPY priv/static priv/static
 RUN mix phx.digest
 
@@ -21,10 +21,16 @@ RUN mkdir -p /opt/release && \
     mv _build/${MIX_ENV}/rel/dps /opt/release
 
 # Runner image
-FROM erlang:23 AS runner
+FROM alpine:3 AS runner
+RUN apk add --no-cache openssl ncurses-libs
 
 WORKDIR /app/
+ENV HOME=/app
 
-COPY --from=builder /opt/release/dps .
+RUN chown nobody:nobody /app
+
+USER nobody:nobody
+
+COPY --chown=nobody:nobody --from=builder /opt/release/dps .
 
 CMD ["/app/bin/dps", "start"]

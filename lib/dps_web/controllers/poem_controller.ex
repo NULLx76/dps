@@ -2,6 +2,8 @@ defmodule DpsWeb.PoemController do
   use DpsWeb, :controller
   alias Dps.{Poem, Author}
 
+  action_fallback DpsWeb.FallbackController
+
   def index(conn, params) do
     query = get_in(params, ["query"])
 
@@ -10,9 +12,12 @@ defmodule DpsWeb.PoemController do
   end
 
   def show(conn, %{"id" => id}) do
-    poem = id |> String.to_integer() |> Poem.Query.get_poem_by_id()
-    title = poem.title <> " by " <> poem.author.name
-    render(conn, "show.html", poem: poem, title: title)
+    with {id, ""} <- Integer.parse(id),
+         %Poem{} = poem <- Poem.Query.get_poem_by_id(id) do
+      render(conn, "show.html", poem: poem, title: "#{poem.title} by #{poem.author.name}")
+    else
+      _ -> {:error, :not_found}
+    end
   end
 
   defp make_author_list do
@@ -22,9 +27,7 @@ defmodule DpsWeb.PoemController do
 
   def new(conn, params) do
     changeset = Poem.changeset(%Poem{})
-
     select = get_in(params, ["author"]) || 0
-
     render(conn, "new.html", changeset: changeset, authors: make_author_list(), select: select)
   end
 

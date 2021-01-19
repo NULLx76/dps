@@ -38,7 +38,8 @@ defmodule DpsWeb.PoemControllerTest do
 
   describe "create poem" do
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = put_req_header(conn, "authorization", Plug.BasicAuth.encode_basic_auth("user", "secret"))
+      conn =
+        put_req_header(conn, "authorization", Plug.BasicAuth.encode_basic_auth("user", "secret"))
 
       conn = post(conn, Routes.poem_path(conn, :create), poem: @invalid_attrs)
       assert html_response(conn, 200) =~ "Add Poem"

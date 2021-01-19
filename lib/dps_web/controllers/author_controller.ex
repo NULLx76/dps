@@ -2,6 +2,8 @@ defmodule DpsWeb.AuthorController do
   use DpsWeb, :controller
   alias Dps.{Poem, Author}
 
+  action_fallback DpsWeb.FallbackController
+
   def index(conn, params) do
     query = get_in(params, ["query"])
 
@@ -10,12 +12,13 @@ defmodule DpsWeb.AuthorController do
   end
 
   def show(conn, %{"id" => id}) do
-    author_id = String.to_integer(id)
-
-    poems = Poem.Query.get_all_poems_by_author(author_id)
-    author = Author.Query.get_author_by_id(author_id)
-
-    render(conn, "show.html", poems: poems, author: author, title: "Poems by " <> author.name)
+    with {author_id, ""} <- Integer.parse(id),
+         poems when is_list(poems) <- Poem.Query.get_all_poems_by_author(author_id),
+         %Author{} = author <- Author.Query.get_author_by_id(author_id) do
+      render(conn, "show.html", poems: poems, author: author, title: "Poems by #{author.name}")
+    else
+      _ -> {:error, :not_found}
+    end
   end
 
   def new(conn, _params) do
@@ -24,7 +27,7 @@ defmodule DpsWeb.AuthorController do
   end
 
   def create(conn, params) do
-    author = get_in(params, ["author"]) || %{}
+    author = get_in(params, ["author"])
 
     with {:ok, %Author{id: id}} <- Author.Query.create_author(author) do
       redirect(conn, to: Routes.poem_path(conn, :new, %{"author" => id}))

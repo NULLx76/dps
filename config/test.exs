@@ -20,3 +20,5 @@ config :dps, DpsWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :dps, :basic_auth, username: "user", password: "secret"

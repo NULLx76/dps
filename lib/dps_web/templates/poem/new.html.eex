@@ -1,7 +1,6 @@
 <h1>Add Poem</h1>
 
-<%= form_for @changeset, Routes.poem_page_path(@conn, :create), [class: "new"], fn f -> %>
-
+<%= form_for @changeset, Routes.poem_path(@conn, :create), [class: "new"], fn f -> %>
   <div>
     <%= label f, :title %>
     <%= error_tag f, :title %>
@@ -17,7 +16,7 @@
   <div>
     <%= label f, :author_id %>
     <%= error_tag f, :author_id %>
-    <span class="deemphasize"><%= link "add author", to: Routes.author_page_path(@conn, :new) %></span>
+    <span class="deemphasize"><%= link "add author", to: Routes.author_path(@conn, :new) %></span>
     <%= select f, :author_id, @authors, [selected: @select] %>
   </div>
 

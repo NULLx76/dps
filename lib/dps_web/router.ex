@@ -22,11 +22,11 @@ defmodule DpsWeb.Router do
   scope "/", DpsWeb do
     pipe_through [:browser, :auth]
 
-    get "/authors/new", AuthorPageController, :new
-    post "/authors/new", AuthorPageController, :create
+    get "/authors/new", AuthorController, :new
+    post "/authors/new", AuthorController, :create
 
-    get "/poems/new", PoemPageController, :new
-    post "/poems/new", PoemPageController, :create
+    get "/poems/new", PoemController, :new
+    post "/poems/new", PoemController, :create
 
     live_dashboard "/dashboard", metrics: DpsWeb.Telemetry, ecto_repos: [Dps.Repo]
   end
@@ -35,30 +35,11 @@ defmodule DpsWeb.Router do
   scope "/", DpsWeb do
     pipe_through :browser
 
-    get "/", PoemPageController, :index
-    get "/poems", PoemPageController, :index
-    get "/poems/:id", PoemPageController, :show
-
-    get "/authors", AuthorPageController, :index
-    get "/authors/:id", AuthorPageController, :show
-  end
-
-  # Public api
-  scope "/api", DpsWeb do
-    pipe_through :api
+    get "/", PoemController, :index
+    get "/poems", PoemController, :index
+    get "/poems/:id", PoemController, :show
 
     get "/authors", AuthorController, :index
     get "/authors/:id", AuthorController, :show
-
-    get "/poems", PoemController, :index
-    get "/poems/:id", PoemController, :show
-  end
-
-  # Authenticated api
-  scope "/api", DpsWeb do
-    pipe_through [:api, :auth]
-
-    post "/authors", AuthorController, :create
-    post "/poems", PoemController, :create
   end
 end

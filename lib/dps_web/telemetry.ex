@@ -13,7 +13,7 @@ defmodule DpsWeb.Telemetry do
       # every 10_000ms. Learn more here: https://hexdocs.pm/telemetry_metrics
       {:telemetry_poller, measurements: periodic_measurements(), period: 10_000},
       # Add reporters as children of your supervision tree
-      {TelemetryMetricsPrometheus, [metrics: metrics()]}
+      {TelemetryMetricsPrometheus, [metrics: custom_metrics()]}
       # {Telemetry.Metrics.ConsoleReporter, metrics: custom_metrics()},
     ]
 

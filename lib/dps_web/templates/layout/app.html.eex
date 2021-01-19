@@ -11,6 +11,7 @@
     <link rel="preload" href="<%= Routes.static_path(@conn, "/fonts/FiraSans/FiraSans-Bold.otf") %>" as="font" crossorigin>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/font.css") %>"/>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="shortcut icon" type="image/png" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>"/>
   </head>
   <body>
     <main role="main" class="container">

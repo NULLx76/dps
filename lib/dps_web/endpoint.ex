@@ -21,7 +21,7 @@ defmodule DpsWeb.Endpoint do
     at: "/",
     from: :dps,
     gzip: false,
-    only: ~w(css fonts images js)
+    only: ~w(css fonts images js favicon.ico)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

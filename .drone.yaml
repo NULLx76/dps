@@ -3,16 +3,30 @@ kind: pipeline
 type: kubernetes
 name: default
 steps:
-  - name: kaniko
-    image: harbor.xirion.net/finitum/drone-kaniko:0.7.0
-    when:
-      branch: [main]
-    settings:
-      cache: true
-      username:
-        from_secret: REGISTRY_USER
-      password:
-        from_secret: REGISTRY_PASSWORD
-      registry: harbor.xirion.net
-      repo: library/dps   
-      tags: latest
+- name: test
+  image: harbor.xirion.net/hub/library/elixir
+  commands:
+    - mix local.rebar --force
+    - mix local.hex --force
+    - mix test
+- name: kaniko
+  image: harbor.xirion.net/finitum/drone-kaniko:0.7.0
+  when:
+    branch: [main]
+  settings:
+    cache: true
+    username:
+      from_secret: REGISTRY_USER
+    password:
+      from_secret: REGISTRY_PASSWORD
+    registry: harbor.xirion.net
+    repo: library/dps   
+    tags: latest
+
+services:
+- name: postgres
+  image: harbor.xirion.net/hub/library/postgres:13-alpine
+  environment:
+    POSTGRES_DB: dps_test
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres

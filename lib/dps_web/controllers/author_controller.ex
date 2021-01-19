@@ -24,7 +24,7 @@ defmodule DpsWeb.AuthorController do
   end
 
   def create(conn, params) do
-    author = get_in(params, ["author"])
+    author = get_in(params, ["author"]) || %{}
 
     with {:ok, %Author{id: id}} <- Author.Query.create_author(author) do
       redirect(conn, to: Routes.poem_path(conn, :new, %{"author" => id}))

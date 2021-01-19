@@ -3,6 +3,18 @@ kind: pipeline
 type: kubernetes
 name: default
 steps:
+- name: restore
+  image: harbor.xirion.net/hub/plugins/s3-cache
+  settings:
+    pull: true
+    endpoint: http://192.168.0.112:9000
+    root: drone
+    restore: true
+    access_key:
+      from_secret: MINIO_ACCESS_KEY
+    secret_key:
+      from_secret: MINIO_SECRET_KEY
+
 - name: test
   image: harbor.xirion.net/hub/library/elixir
   commands:
@@ -10,6 +22,23 @@ steps:
     - mix local.hex --force
     - mix deps.get
     - mix test
+
+- name: rebuild cache
+  image: harbor.xirion.net/hub/plugins/s3-cache
+  settings:
+    pull: true
+    root: drone
+    endpoint: http://192.168.0.112:9000
+    access_key:
+      from_secret: MINIO_ACCESS_KEY
+    secret_key:
+      from_secret: MINIO_SECRET_KEY
+    rebuild: true
+    mount:
+      - deps
+      - _build
+    when:
+      event: push
 - name: kaniko
   image: harbor.xirion.net/finitum/drone-kaniko:0.7.0
   when:

@@ -19,6 +19,6 @@
     <% end %>
 
     <pre>
-        <%= @poem.content %>
+        <%= raw @poem.content %>
     </pre>
 </article>

@@ -144,6 +144,10 @@ pre {
     font-size-adjust: inherit;
 }
 
+.blue {
+    color: blue;
+}
+
 /* New Poem/Author Form */
 
 form.new {

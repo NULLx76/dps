@@ -1,7 +1,8 @@
 defmodule Dps.Poem do
   use Ecto.Schema
   import Ecto.{Changeset, Query}
-  alias Dps.Author
+  alias Dps.{Author, Cache, Repo}
+  alias __MODULE__
 
   @derive {Jason.Encoder, only: [:id, :title, :epigraph, :content, :author, :author_id]}
   schema "poems" do
@@ -23,14 +24,8 @@ defmodule Dps.Poem do
     |> unique_constraint([:title, :author_id])
     |> foreign_key_constraint(:author_id)
   end
-end
 
-defmodule Dps.Poem.Query do
-  import Ecto.Query
-  alias Dps.{Repo, Poem, Cache}
-
-  @spec get_all_poems :: nil | [%Poem{}]
-  def get_all_poems(search \\ "") do
+  def list_poems(search \\ "") do
     wildcard_search = "%#{search}%"
 
     from(p in Poem,
@@ -42,7 +37,7 @@ defmodule Dps.Poem.Query do
     |> Repo.preload(:author)
   end
 
-  def get_all_poems_by_author(author_id) do
+  def list_poems_by_author(author_id) do
     from(p in Poem,
       select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
       where: p.author_id == ^author_id,
@@ -51,7 +46,7 @@ defmodule Dps.Poem.Query do
     |> Repo.all()
   end
 
-  def get_poem_by_id(id) do
+  def get_poem(id) do
     case Cache.get({:poem, id}) do
       nil ->
         :telemetry.execute([:dps, :cache, :miss], %{poem: id})
@@ -69,17 +64,17 @@ defmodule Dps.Poem.Query do
     end
   end
 
-  def update_poem(id, poem) do
-    Cache.delete({:poem, id})
-
-    Repo.get(Poem, id)
-    |> Poem.changeset(poem)
-    |> Repo.update()
-  end
-
   def create_poem(attrs \\ %{}) do
     %Poem{}
     |> Poem.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def update_poem(id, attrs \\ %{}) do
+    Cache.delete({:poem, id})
+
+    Repo.get(Poem, id)
+    |> Poem.changeset(attrs)
+    |> Repo.update()
   end
 end

@@ -43,7 +43,11 @@ defmodule DpsWeb.ConnCase do
 
   @spec login(Plug.Conn.t()) :: Plug.Conn.t()
   def login(conn) do
-    Plug.Conn.put_req_header(conn, "authorization", Plug.BasicAuth.encode_basic_auth("user", "secret"))
+    Plug.Conn.put_req_header(
+      conn,
+      "authorization",
+      Plug.BasicAuth.encode_basic_auth("user", "secret")
+    )
   end
 
   @spec random_string(non_neg_integer) :: binary

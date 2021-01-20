@@ -67,7 +67,7 @@ defmodule DpsWeb.AuthorControllerTest do
     test "get edit author", %{conn: conn} do
       conn = login(conn)
 
-      {:ok, new_author} = Author.Query.create_author(%{name: random_string()})
+      {:ok, new_author} = Author.create_author(%{name: random_string()})
 
       conn = get(conn, Routes.author_path(conn, :edit, new_author.id))
 
@@ -85,10 +85,12 @@ defmodule DpsWeb.AuthorControllerTest do
       conn = login(conn)
 
       old_name = random_string()
-      {:ok, new_author} = Author.Query.create_author(%{name: old_name})
+      {:ok, new_author} = Author.create_author(%{name: old_name})
 
       new_name = random_string()
-      conn = put(conn, Routes.author_path(conn, :update, new_author.id), author: %{name: new_name})
+
+      conn =
+        put(conn, Routes.author_path(conn, :update, new_author.id), author: %{name: new_name})
 
       # Assert that we got redirected to the author page
       assert %{id: id} = redirected_params(conn)
@@ -102,7 +104,7 @@ defmodule DpsWeb.AuthorControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = login(conn)
 
-      {:ok, new_author} = Author.Query.create_author(%{name: random_string()})
+      {:ok, new_author} = Author.create_author(%{name: random_string()})
 
       conn = put(conn, Routes.author_path(conn, :update, new_author.id), author: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Author"

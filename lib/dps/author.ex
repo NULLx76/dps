@@ -1,7 +1,8 @@
 defmodule Dps.Author do
   use Ecto.Schema
-  import Ecto.Changeset
-  alias Dps.Poem
+  import Ecto.{Changeset, Query}
+  alias Dps.{Cache, Poem, Repo}
+  alias __MODULE__
 
   @derive {Jason.Encoder, only: [:id, :name]}
   schema "authors" do
@@ -19,11 +20,6 @@ defmodule Dps.Author do
     |> validate_required([:name])
     |> unique_constraint(:name)
   end
-end
-
-defmodule Dps.Author.Query do
-  import Ecto.Query
-  alias Dps.{Repo, Author, Cache}
 
   def create_author(attrs \\ %{}) do
     %Author{}
@@ -31,7 +27,7 @@ defmodule Dps.Author.Query do
     |> Repo.insert()
   end
 
-  def all_authors(query \\ "", sort_by \\ [asc: :name]) do
+  def list_authors(query \\ "", sort_by \\ [asc: :name]) do
     wildcard_query = "%#{query}%"
 
     from(a in Author,
@@ -41,7 +37,7 @@ defmodule Dps.Author.Query do
     |> Repo.all()
   end
 
-  def get_author_by_id(id) do
+  def get_author(id) do
     case Cache.get({:author_by_id, id}) do
       nil ->
         :telemetry.execute([:dps, :cache, :miss], %{author_by_id: id})
@@ -54,7 +50,7 @@ defmodule Dps.Author.Query do
     end
   end
 
-  def update_author(id, attrs) do
+  def update_author(id, attrs \\ %{}) do
     Cache.delete({:author_by_id, id})
 
     Repo.get(Author, id)

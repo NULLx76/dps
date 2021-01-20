@@ -3,7 +3,7 @@ kind: pipeline
 type: kubernetes
 name: default
 steps:
-- name: restore
+- name: restore cache
   image: harbor.xirion.net/hub/plugins/s3-cache
   settings:
     pull: true

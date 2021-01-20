@@ -40,7 +40,7 @@ defmodule DpsWeb.PoemControllerTest do
     end
 
     test "redirects to show when data is valid", %{conn: conn} do
-      {:ok, new_author} = Dps.Author.Query.create_author(%{name: random_string()})
+      {:ok, new_author} = Dps.Author.create_author(%{name: random_string()})
 
       conn = login(conn)
 
@@ -73,10 +73,10 @@ defmodule DpsWeb.PoemControllerTest do
     test "is available with auth", %{conn: conn} do
       conn = login(conn)
 
-      {:ok, new_author} = Dps.Author.Query.create_author(%{name: random_string()})
+      {:ok, new_author} = Dps.Author.create_author(%{name: random_string()})
 
       {:ok, new_poem} =
-        Dps.Poem.Query.create_poem(%{
+        Dps.Poem.create_poem(%{
           author_id: new_author.id,
           title: random_string(),
           content: random_string()
@@ -92,10 +92,10 @@ defmodule DpsWeb.PoemControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = login(conn)
 
-      {:ok, new_author} = Dps.Author.Query.create_author(%{name: random_string()})
+      {:ok, new_author} = Dps.Author.create_author(%{name: random_string()})
 
       {:ok, new_poem} =
-        Dps.Poem.Query.create_poem(%{
+        Dps.Poem.create_poem(%{
           author_id: new_author.id,
           title: random_string(),
           content: random_string()
@@ -108,10 +108,10 @@ defmodule DpsWeb.PoemControllerTest do
     test "redirects to show when data is valid", %{conn: conn} do
       conn = login(conn)
 
-      {:ok, new_author} = Dps.Author.Query.create_author(%{name: random_string()})
+      {:ok, new_author} = Dps.Author.create_author(%{name: random_string()})
 
       {:ok, new_poem} =
-        Dps.Poem.Query.create_poem(%{
+        Dps.Poem.create_poem(%{
           author_id: new_author.id,
           title: random_string(),
           content: random_string()

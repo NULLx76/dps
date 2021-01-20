@@ -1,4 +1,4 @@
-<h1>Add Poem</h1>
+<h1>Edit Poem</h1>
 
 <%= form_for @changeset, Routes.poem_path(@conn, :update, @changeset.data.id), [class: "new"], fn f -> %>
   <div>

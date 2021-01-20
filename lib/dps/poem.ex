@@ -71,6 +71,7 @@ defmodule Dps.Poem.Query do
 
   def update_poem(id, poem) do
     Cache.delete({:poem, id})
+
     Repo.get(Poem, id)
     |> Poem.changeset(poem)
     |> Repo.update()

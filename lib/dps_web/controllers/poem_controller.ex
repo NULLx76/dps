@@ -55,7 +55,14 @@ defmodule DpsWeb.PoemController do
 
   def update(conn, %{"id" => id, "poem" => poem}) do
     {id, ""} = Integer.parse(id)
-    Poem.Query.update_poem(id, poem)
-    redirect(conn, to: Routes.poem_path(conn, :show, id))
+
+    with {:ok, %Poem{id: id}} <- Poem.Query.update_poem(id, poem) do
+      redirect(conn, to: Routes.poem_path(conn, :show, id))
+    else
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Invalid poem")
+        |> render("edit.html", changeset: changeset, authors: make_author_list())
+    end
   end
 end

@@ -43,4 +43,19 @@ defmodule DpsWeb.PoemController do
         |> render("new.html", changeset: changeset, authors: make_author_list(), select: 0)
     end
   end
+
+  def edit(conn, %{"id" => id}) do
+    with {id, ""} <- Integer.parse(id),
+         %Poem{} = poem <- Poem.Query.get_poem_by_id(id) do
+      render(conn, "edit.html", changeset: Poem.changeset(poem), authors: make_author_list())
+    else
+      _ -> {:error, :not_found}
+    end
+  end
+
+  def update(conn, %{"id" => id, "poem" => poem}) do
+    {id, ""} = Integer.parse(id)
+    Poem.Query.update_poem(id, poem)
+    redirect(conn, to: Routes.poem_path(conn, :show, id))
+  end
 end

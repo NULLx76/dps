@@ -69,6 +69,13 @@ defmodule Dps.Poem.Query do
     end
   end
 
+  def update_poem(id, poem) do
+    Cache.delete({:poem, id})
+    Repo.get(Poem, id)
+    |> Poem.changeset(poem)
+    |> Repo.update()
+  end
+
   def create_poem(attrs \\ %{}) do
     %Poem{}
     |> Poem.changeset(attrs)

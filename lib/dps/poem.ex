@@ -64,13 +64,13 @@ defmodule Dps.Poem do
     end
   end
 
-  def create_poem(attrs \\ %{}) do
+  def create_poem(attrs) do
     %Poem{}
     |> Poem.changeset(attrs)
     |> Repo.insert()
   end
 
-  def update_poem(id, attrs \\ %{}) do
+  def update_poem(id, attrs) do
     Cache.delete({:poem, id})
 
     Repo.get(Poem, id)

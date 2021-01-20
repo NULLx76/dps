@@ -21,7 +21,7 @@ defmodule Dps.Author do
     |> unique_constraint(:name)
   end
 
-  def create_author(attrs \\ %{}) do
+  def create_author(attrs) do
     %Author{}
     |> Author.changeset(attrs)
     |> Repo.insert()
@@ -50,7 +50,7 @@ defmodule Dps.Author do
     end
   end
 
-  def update_author(id, attrs \\ %{}) do
+  def update_author(id, attrs) do
     Cache.delete({:author_by_id, id})
 
     Repo.get(Author, id)

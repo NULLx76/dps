@@ -53,4 +53,12 @@ defmodule Dps.Author.Query do
         v
     end
   end
+
+  def update_author(id, attrs) do
+    Cache.delete({:author_by_id, id})
+
+    Repo.get(Author, id)
+    |> Author.changeset(attrs)
+    |> Repo.update()
+  end
 end

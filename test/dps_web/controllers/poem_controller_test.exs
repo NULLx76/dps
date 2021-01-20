@@ -9,14 +9,6 @@ defmodule DpsWeb.PoemControllerTest do
   }
   @invalid_attrs %{title: nil, epigraph: nil, content: nil, author_id: nil}
 
-  defp random_string(length \\ 32) do
-    :crypto.strong_rand_bytes(length) |> Base.encode64() |> binary_part(0, length)
-  end
-
-  defp login(conn) do
-    put_req_header(conn, "authorization", Plug.BasicAuth.encode_basic_auth("user", "secret"))
-  end
-
   describe "index" do
     test "GET /poems", %{conn: conn} do
       conn = get(conn, Routes.poem_path(conn, :index))

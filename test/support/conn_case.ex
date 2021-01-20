@@ -40,4 +40,14 @@ defmodule DpsWeb.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
+
+  @spec login(Plug.Conn.t()) :: Plug.Conn.t()
+  def login(conn) do
+    Plug.Conn.put_req_header(conn, "authorization", Plug.BasicAuth.encode_basic_auth("user", "secret"))
+  end
+
+  @spec random_string(non_neg_integer) :: binary
+  def random_string(length \\ 32) do
+    :crypto.strong_rand_bytes(length) |> Base.encode64() |> binary_part(0, length)
+  end
 end

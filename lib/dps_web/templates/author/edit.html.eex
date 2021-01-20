@@ -1,0 +1,9 @@
+<h1>Edit Author</h1>
+
+<%= form_for @changeset, Routes.author_path(@conn, :update, @changeset.data.id), [class: "new"], fn f -> %>
+  <%= label f, :name %>
+  <%= error_tag f, :name %>
+  <%= text_input f, :name %>
+
+  <%= submit "Update" %>
+<% end %>

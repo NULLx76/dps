@@ -38,4 +38,26 @@ defmodule DpsWeb.AuthorController do
         |> render("new.html", changeset: changeset)
     end
   end
+
+  def edit(conn, %{"id" => id}) do
+    with {id, ""} <- Integer.parse(id),
+         %Author{} = author <- Author.Query.get_author_by_id(id) do
+      render(conn, "edit.html", changeset: Author.changeset(author))
+    else
+      _ -> {:error, :not_found}
+    end
+  end
+
+  def update(conn, %{"id" => id, "author" => author}) do
+    {id, ""} = Integer.parse(id)
+
+    with {:ok, %Author{id: id}} <- Author.Query.update_author(id, author) do
+      redirect(conn, to: Routes.author_path(conn, :show, id))
+    else
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Invalid author")
+        |> render("edit.html", changeset: changeset)
+    end
+  end
 end

@@ -24,6 +24,8 @@ defmodule DpsWeb.Router do
 
     get "/authors/new", AuthorController, :new
     post "/authors/new", AuthorController, :create
+    get "/authors/:id/edit", AuthorController, :edit
+    put "/authors/:id/edit", AuthorController, :update
 
     get "/poems/new", PoemController, :new
     post "/poems/new", PoemController, :create

@@ -117,14 +117,14 @@ defmodule DpsWeb.PoemControllerTest do
           content: random_string()
         })
 
-      new_poem = Map.from_struct(%{new_poem | title: random_string()})
-      conn = put(conn, Routes.poem_path(conn, :update, new_poem.id), poem: new_poem)
+      poem_struct = Map.from_struct(%{new_poem | title: random_string()})
+      conn = put(conn, Routes.poem_path(conn, :update, poem_struct.id), poem: poem_struct)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.poem_path(conn, :show, id)
 
       conn = get(conn, Routes.poem_path(conn, :show, id))
-      assert html_response(conn, 200) =~ new_poem.title
+      assert html_response(conn, 200) =~ poem_struct.title
     end
   end
 end

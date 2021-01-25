@@ -1,6 +1,6 @@
 defmodule DpsWeb.AuthorController do
   use DpsWeb, :controller
-  alias Dps.{Poem, Author}
+  alias Dps.{Author, Poem}
 
   action_fallback DpsWeb.FallbackController
 

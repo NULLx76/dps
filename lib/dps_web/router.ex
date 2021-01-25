@@ -10,10 +10,6 @@ defmodule DpsWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   defp auth(conn, _opts) do
     Plug.BasicAuth.basic_auth(conn, Application.fetch_env!(:dps, :basic_auth))
   end

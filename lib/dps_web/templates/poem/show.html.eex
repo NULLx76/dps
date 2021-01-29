@@ -14,7 +14,7 @@
 
     <%= if @poem.epigraph do %>
     <blockquote>
-        <%= @poem.epigraph %>
+        <%= raw @poem.epigraph %>
     </blockquote>
     <% end %>
 

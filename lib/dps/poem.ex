@@ -20,7 +20,6 @@ defmodule Dps.Poem do
     poem
     |> cast(attrs, [:title, :epigraph, :content, :author_id])
     |> validate_required([:title, :content, :author_id])
-    |> validate_length(:epigraph, max: 255)
     |> unique_constraint([:title, :author_id])
     |> foreign_key_constraint(:author_id)
   end

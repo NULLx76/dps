@@ -137,7 +137,7 @@ blockquote {
 }
 
 pre {
-    white-space: pre;
+    white-space: pre-wrap;
     font-family: 'Droid Serif', serif;
     line-height: 1.4;
     margin: 1em 0;

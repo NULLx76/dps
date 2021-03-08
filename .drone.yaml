@@ -40,7 +40,7 @@ steps:
     when:
       event: push
 - name: kaniko
-  image: harbor.xirion.net/finitum/drone-kaniko:0.7.0
+  image: harbor.xirion.net/finitum/drone-kaniko:0.8.1
   when:
     branch: [main]
   settings:

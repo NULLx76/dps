@@ -5,7 +5,8 @@ defmodule DpsWeb.PoemControllerTest do
     title: "Some Title",
     epigraph: "Some Epi",
     content: "Some Content",
-    author_id: 1
+    author_id: 1,
+    translator_id: nil
   }
   @invalid_attrs %{title: nil, epigraph: nil, content: nil, author_id: nil}
 
@@ -41,12 +42,13 @@ defmodule DpsWeb.PoemControllerTest do
 
     test "redirects to show when data is valid", %{conn: conn} do
       {:ok, new_author} = Dps.Author.create_author(%{name: random_string()})
+      {:ok, new_translator} = Dps.Author.create_author(%{name: random_string()})
 
       conn = login(conn)
 
       conn =
         post(conn, Routes.poem_path(conn, :create),
-          poem: %{@create_attrs | author_id: new_author.id}
+          poem: %{@create_attrs | author_id: new_author.id, translator_id: new_translator.id}
         )
 
       assert %{id: id} = redirected_params(conn)
@@ -61,6 +63,9 @@ defmodule DpsWeb.PoemControllerTest do
         _ -> true
       end)
       |> assert
+
+      assert html =~ new_translator.name
+      assert html =~ new_author.name
     end
   end
 

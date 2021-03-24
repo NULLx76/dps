@@ -10,6 +10,11 @@
         <h3 class="author">
             <%= link @poem.author.name, to: Routes.author_path(@conn, :show, @poem.author.id) %>
         </h3>
+        <%= if @poem.translator do %>
+        <h3 class="translator">
+            <%= link @poem.translator.name, to: Routes.author_path(@conn, :show, @poem.translator.id) %>
+        </h3>
+        <% end %>
     </header>
 
     <%= if @poem.epigraph do %>

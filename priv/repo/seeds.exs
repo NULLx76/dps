@@ -7,6 +7,8 @@ alias Dps.Author
 coleridge = Repo.insert!(%Author{name: "Samuel Taylor Coleridge"}).id
 robert_frost = Repo.insert!(%Author{name: "Robert Frost"}).id
 edgar_allan_poe = Repo.insert!(%Author{name: "Edgar Allan Poe"}).id
+clare_cavanagh = Repo.insert!(%Author{name: "Clare Cavanagh"}).id
+adam_zagajewski = Repo.insert!(%Author{name: "Adam Zagajewski"}).id
 
 Repo.insert!(%Poem{
   author_id: coleridge,
@@ -227,3 +229,30 @@ On the pallid bust of Pallas just above my chamber door;
 And my soul from out that shadow that lies floating on the floor
             Shall be lifted—nevermore!"
 })
+
+Repo.insert!(%Poem{
+      author_id: adam_zagajewski,
+      translator_id: clare_cavanagh,
+      title: "Try to Praise the Mutilated World",
+      content: "Try to praise the mutilated world.
+Remember June's long days,
+and wild strawberries, drops of rosé wine.
+The nettles that methodically overgrow
+the abandoned homesteads of exiles.
+You must praise the mutilated world.
+You watched the stylish yachts and ships;
+one of them had a long trip ahead of it,
+while salty oblivion awaited others.
+You've seen the refugees going nowhere,
+you've heard the executioners sing joyfully.
+You should praise the mutilated world.
+Remember the moments when we were together
+in a white room and the curtain fluttered.
+Return in thought to the concert where music flared.
+You gathered acorns in the park in autumn
+and leaves eddied over the earth's scars.
+Praise the mutilated world
+and the gray feather a thrush lost,
+and the gentle light that strays and vanishes
+and returns."
+    })

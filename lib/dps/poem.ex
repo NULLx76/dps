@@ -4,13 +4,14 @@ defmodule Dps.Poem do
   alias Dps.{Author, Cache, Repo}
   alias __MODULE__
 
-  @derive {Jason.Encoder, only: [:id, :title, :epigraph, :content, :author, :author_id]}
+  @derive {Jason.Encoder, only: [:id, :title, :epigraph, :content, :author, :author_id, :translator, :translator_id]}
   schema "poems" do
     field :title, :string
     field :epigraph, :string
     field :content, :string
 
     belongs_to :author, Author
+    belongs_to :translator, Author
 
     timestamps()
   end
@@ -18,10 +19,11 @@ defmodule Dps.Poem do
   @doc false
   def changeset(poem, attrs \\ %{}) do
     poem
-    |> cast(attrs, [:title, :epigraph, :content, :author_id])
+    |> cast(attrs, [:title, :epigraph, :content, :author_id, :translator_id])
     |> validate_required([:title, :content, :author_id])
     |> unique_constraint([:title, :author_id])
     |> foreign_key_constraint(:author_id)
+    |> foreign_key_constraint(:translator_id)
   end
 
   def list_poems(search \\ "") do
@@ -38,8 +40,8 @@ defmodule Dps.Poem do
 
   def list_poems_by_author(author_id) do
     from(p in Poem,
-      select: %Poem{id: p.id, author_id: p.author_id, title: p.title},
-      where: p.author_id == ^author_id,
+      select: %Poem{id: p.id, author_id: p.author_id, translator_id: p.translator_id, title: p.title},
+      where: p.author_id == ^author_id or p.translator_id == ^author_id,
       order_by: [asc: p.title]
     )
     |> Repo.all()
@@ -53,7 +55,7 @@ defmodule Dps.Poem do
         poem =
           Poem
           |> Repo.get(id)
-          |> Repo.preload(:author)
+          |> Repo.preload([:author, :translator])
 
         Cache.put({:poem, id}, poem)
 
